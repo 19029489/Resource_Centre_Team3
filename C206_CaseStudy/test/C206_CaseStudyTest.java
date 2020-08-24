@@ -86,7 +86,21 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that item list is not empty, item can still be added",2,ItemDB.itemList.size());
 		
 		// Test that after adding item, the same item cannot be added again
-		assertEqeals("Test that after adding item, the same item cannot be added again",1, ItemDB.itemList.
+		assertEquals("Test that after adding item, the same item cannot be added again",1, ItemDB.itemList.get(1));
+
+	}
+	
+	//Created by Qayyum
+	@Test
+	public void deleteItemTest() {
+
+		// When item is deleted, item list should decreased 
+		UserDB.itemList.remove(item1);
+		assertEquals("When item is deleted, item list should decreased ", ItemDB.itemList.size() > 0, ItemDB.itemList.size());
+		
+		// If item list is not null, item is ready to be deleted
+		UserDB.itemList.add(item1);
+		assertEquals("If item list is not null, item is ready to be deleted", ItemDB.itemList.size() > 0, ItemDB.itemList.size());
 
 	}
 	
