@@ -1,3 +1,4 @@
+// Created by Haziq at 24/8/2020
 
 public class User {
 	private String username;

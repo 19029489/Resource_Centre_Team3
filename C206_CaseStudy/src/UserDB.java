@@ -1,3 +1,4 @@
+// Created by Haziq at 24/8/2020
 import java.util.ArrayList;
 
 public class UserDB extends User{
@@ -23,6 +24,15 @@ public class UserDB extends User{
 			System.out.println("There are no users available.");
 		}
 
+	}
+	
+	public static void delUser(String name) {
+		
+		for(int i = 0; i<userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(name)) {
+				userList.remove(i);
+			}
+		}
 	}
 	
 	
