@@ -1,4 +1,4 @@
-
+//Created by Huai Yu 24/8/2020
 public class Deal {
 	
 	private String dealID;

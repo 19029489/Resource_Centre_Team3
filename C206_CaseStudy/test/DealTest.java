@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+//Created by Huai Yu 24/8/2020
 public class DealTest {
 
 	private Deal deal1, deal2;
