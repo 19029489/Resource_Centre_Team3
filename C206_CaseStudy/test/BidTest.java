@@ -6,21 +6,20 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class C206_CaseStudyTest {
-	
+public class BidTest {
+
 	private Bid bid1;
 	private ArrayList<Bid>bidList;
 	
-	public C206_CaseStudyTest() {
+	public BidTest() {
 		super();
 	}
-
-	
 	
 	@Before
 	public void setUp() throws Exception {
 		bid1 = new Bid("bd1", "Books", "joshlee@gmail.com", "johntan@gmail.com", 15.0);
 		bidList = new ArrayList<Bid>();
+		
 	}
 
 	@After
@@ -28,9 +27,8 @@ public class C206_CaseStudyTest {
 		
 		bid1 = null;
 		bidList = null;
-		
 	}
-	
+
 	@Test
 	public void addBidtest() {
 		
@@ -79,10 +77,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.bidList.clear();
 		assertSame("Test if the list of bids all removed", bid1, bidList.clear());
 	}	
-
-	@Test
-	public void c206_test() {
-		assertTrue("C206_CaseStudy_SampleTest ",true);
-	}
-
+	
 }
+	
+	
