@@ -12,7 +12,7 @@ public class C206_CaseStudyTest {
 	public void setUp() throws Exception {
 		
 		/* Add User */
-		user1 = new User("User", "Member", "Fish@hotmail.com", "User");
+		user1 = new User("Fish", "Member", "Fish@hotmail.com", "User");
 		user2 = new User("User", "Staff", "Fishmanh@fishmail.com", "UserPass");
 		UserDB.userList.clear();
 	}
@@ -63,11 +63,11 @@ public class C206_CaseStudyTest {
 		assertTrue("Test that the user list is not 0 before deleting users", !UserDB.userList.isEmpty());
 		
 		// Test that the user list is 0 after deleting users (successful delete)
-		UserDB.delUser("User");
+		UserDB.delUser("Fish");
 		assertEquals("Test that the user list is 0 after deleting users", 0, UserDB.userList.size());
 		
 		// Test that if the user enters an incorrect name, an error message will be displayed informing that the user doesn't exist
-		UserDB.userList.add(user1);
+		UserDB.addUser(user1);
 		UserDB.delUser("User");
 		
 		

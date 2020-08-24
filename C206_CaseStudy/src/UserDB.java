@@ -27,15 +27,23 @@ public class UserDB extends User{
 	}
 	
 	public static void delUser(String name) {
+		
+		boolean check = false;
+		
 		if(!(userList.isEmpty())) {
-			for(int i = 0; i<userList.size(); i++) {
-				if(userList.get(i).getUsername() == name) {
-					userList.remove(i);
-				}else {
-					System.out.println("Username does not exist.");
+			for(User users : userList) {
+				if(users.getUsername() == name) {
+					userList.remove(users);
+					check = true;
 				}
 			}
 		}
+		
+		if(check == false) {
+			System.out.println("Username does not exist.");
+		}
+		
+		
 		
 	}
 	
