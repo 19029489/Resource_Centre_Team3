@@ -10,13 +10,13 @@ public class UserDB extends User{
 	}
 	
 	public static void addUser(User a) {
-		
 		userList.add(a);
+		
 	}
 	
 	public static void viewAllUser() {
 		
-		if(!userList.isEmpty()) {
+		if(!userList.isEmpty() && userList.size() <=2) {
 			for(int i = 0; i < userList.size(); i++) {
 				System.out.println(String.format("Username: %s\nRole: %s\nEmail: %s\n\n", userList.get(i).getUsername(), userList.get(i).getRole(), userList.get(i).getEmail()));
 			}
@@ -28,11 +28,23 @@ public class UserDB extends User{
 	
 	public static void delUser(String name) {
 		
-		for(int i = 0; i<userList.size(); i++) {
-			if(userList.get(i).getUsername().equals(name)) {
-				userList.remove(i);
+		boolean check = false;
+		
+		if(!(userList.isEmpty())) {
+			for(User users : userList) {
+				if(users.getUsername() == name) {
+					userList.remove(users);
+					check = true;
+				}
 			}
 		}
+		
+		if(check == false) {
+			System.out.println("Username does not exist.");
+		}
+		
+		
+		
 	}
 	
 	

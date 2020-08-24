@@ -42,7 +42,7 @@ public class User {
 	}
 	
 	public void setPassword(String a) {
-		a = username;
+		a = password;
 	}
 
 	@Override

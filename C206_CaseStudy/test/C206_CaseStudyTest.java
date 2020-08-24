@@ -13,7 +13,7 @@ public class C206_CaseStudyTest {
 	public void setUp() throws Exception {
 		
 		/* Add User */
-		user1 = new User("User", "Member", "Fish@hotmail.com", "User");
+		user1 = new User("Fish", "Member", "Fish@hotmail.com", "User");
 		user2 = new User("User", "Staff", "Fishmanh@fishmail.com", "UserPass");
 		UserDB.userList.clear();
 		
@@ -51,24 +51,32 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that the user list is 0 before adding users", 0, UserDB.userList.size());
 		
 		//  Test that the user list is 1 after adding user (successful adding)
-		UserDB.userList.add(user1);
+		UserDB.addUser(user1);
 		assertEquals("Test that the user list is 0 before adding users", 1, UserDB.userList.size());
 		
-		// Test that if the user enters a duplicate name, an error message will be displayed informing the user that their name has already been taken
-		assertEquals("Test that if the user enters a duplicate name, an error message will be displayed informing the user that their name has already been taken", );
+		// Test that user list can only store up to 2 users
+		UserDB.addUser(user2);
+		UserDB.addUser(user1);
+		assertTrue("Test that user list can only store up to 2 users", !(UserDB.userList.size() <= 2));
+		assertFalse("Test that user list can only store up to 2 users", !(UserDB.userList.size() > 2));
 	}
 	
 	@Test
 	public void delUserTest() {
 
 		// Test that the user list is not 0 before deleting users
-		UserDB.userList.add(user1);
-		assertEquals("Test that the user list is 0 before adding users", UserDB.userList.size() > 0, UserDB.userList.size());
+		UserDB.addUser(user1);
+		assertTrue("Test that the user list is not 0 before deleting users", !UserDB.userList.isEmpty());
 		
 		// Test that the user list is 0 after deleting users (successful delete)
-		UserDB.userList.remove(user1);
-		assertEquals("Test that the user list is 0 after adding users", UserDB.userList.size() > 0, UserDB.userList.size());
-
+		UserDB.delUser("Fish");
+		assertEquals("Test that the user list is 0 after deleting users", 0, UserDB.userList.size());
+		
+		// Test that if the user enters an incorrect name, an error message will be displayed informing that the user doesn't exist
+		UserDB.addUser(user1);
+		UserDB.delUser("User");
+		
+		
 	}
 	
 	//Created by Qayyum
@@ -104,6 +112,15 @@ public class C206_CaseStudyTest {
 
 	}
 	
+	
+	@Test
+	public void viewAllUserTest() {
+
+		// Test that user list is not empty 
+		assertTrue("Test that user list is not empty ", UserDB.userList.isEmpty());
+		assertFalse("Test that user list is not empty ", !UserDB.userList.isEmpty());
+		
+	}
 	
 
 
