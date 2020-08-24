@@ -77,16 +77,6 @@ public class CategoryTest {
 		// Test size of catList is 2 after delete a category
 		CategoryDB.delCategory(cat2);
 		assertEquals("Test size of catList is 2 after delete a category", 2, CategoryDB.catList.size());
-		
-		// Test the deleted element in catList is 2nd element
-//		assertSame("Test the deleted element in catList is the same as what was deleted", cat2, CategoryDB.catList.get(2));
-	
-	}
-	
-	@Test
-	public void showCategoryMenu() {	
-		// Test catList is NOT null
-		assertNotNull("Test catList is NOT null", CategoryDB.catList);
 	
 	}
 
