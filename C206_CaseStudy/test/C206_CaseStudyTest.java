@@ -14,7 +14,7 @@ public class C206_CaseStudyTest {
 		/* Add User */
 		user1 = new User("Fish", "Member", "Fish@hotmail.com", "User");
 		user2 = new User("User", "Staff", "Fishmanh@fishmail.com", "UserPass");
-		UserDB.userList.clear();
+		
 	}
 
 	@After
@@ -37,7 +37,6 @@ public class C206_CaseStudyTest {
 	/* ADD USER TEST */
 	
 	// Created by Haziq at 24/8/2020
-	
 	@Test
 	public void addUserTest() {
 
@@ -55,9 +54,12 @@ public class C206_CaseStudyTest {
 		assertFalse("Test that user list can only store up to 2 users", !(UserDB.userList.size() > 2));
 	}
 	
+	// Created by Haziq at 24/8/2020
 	@Test
 	public void delUserTest() {
-
+		
+		
+		
 		// Test that the user list is not 0 before deleting users
 		UserDB.addUser(user1);
 		assertTrue("Test that the user list is not 0 before deleting users", !UserDB.userList.isEmpty());
@@ -66,14 +68,15 @@ public class C206_CaseStudyTest {
 		UserDB.delUser("Fish");
 		assertEquals("Test that the user list is 0 after deleting users", 0, UserDB.userList.size());
 		
-		// Test that if the user enters an incorrect name, an error message will be displayed informing that the user doesn't exist
+		// Test that user list remains at 1 if delete with incorrect username
 		UserDB.addUser(user1);
 		UserDB.delUser("User");
-		
+		assertEquals("Test that user list remains at 1 if delete with incorrect username", 1, UserDB.userList.size());
+
 		
 	}
 	
-	
+	// Created by Haziq at 24/8/2020
 	@Test
 	public void viewAllUserTest() {
 

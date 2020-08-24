@@ -30,14 +30,16 @@ public class UserDB extends User{
 		
 		boolean check = false;
 		
-		if(!(userList.isEmpty())) {
-			for(User users : userList) {
-				if(users.getUsername() == name) {
-					userList.remove(users);
+
+			for(int i = 0; i<userList.size(); i++) {
+				if(userList.get(i).getUsername().equals(name)) {
+					userList.remove(i);
 					check = true;
 				}
+				
+				
 			}
-		}
+		
 		
 		if(check == false) {
 			System.out.println("Username does not exist.");

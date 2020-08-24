@@ -7,10 +7,10 @@ public class User {
 	private String password;
 	
 	public User(String a, String b, String c, String d){
-		a = username;
-		b = role;
-		c = email;
-		d = password;
+		username = a;
+		role = b;
+		email = c;
+		password = c;
 	}
 	
 	public String getUsername() {
@@ -18,7 +18,7 @@ public class User {
 	}
 	
 	public void setUsername(String a) {
-		a = username;
+		username = a;
 	}
 	
 	public String getRole() {
@@ -26,7 +26,7 @@ public class User {
 	}
 	
 	public void setRole(String a) {
-		a = role;
+		role = a;
 	}
 	
 	public String getEmail() {
@@ -34,7 +34,7 @@ public class User {
 	}
 	
 	public void setEmail(String a) {
-		a = email;
+		email = a;
 	}
 	
 	public String getPassword() {
@@ -42,7 +42,7 @@ public class User {
 	}
 	
 	public void setPassword(String a) {
-		a = password;
+		password = a;
 	}
 
 	@Override
