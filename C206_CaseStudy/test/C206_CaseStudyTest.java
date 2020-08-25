@@ -75,6 +75,9 @@ public class C206_CaseStudyTest {
 		assertFalse("If item list is empty, it should not be able to view items  ", ItemDB.itemList.isEmpty());
 		
 	}
+
+
+
 	
 	//Created by Yee Hung
 	@Test
@@ -135,12 +138,6 @@ public class C206_CaseStudyTest {
 		assertEquals("Test size of catList is 2 after delete a category", 2, CategoryDB.catList.size());
 	
 	}
-
-
-}
-	
-
-	
 
 
 }
