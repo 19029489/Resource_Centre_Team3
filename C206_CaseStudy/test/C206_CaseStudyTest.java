@@ -47,10 +47,6 @@ public class C206_CaseStudyTest {
 		ItemDB.itemList.add(item1);
 		assertEquals("Test that after adding, item list should increase", 2, ItemDB.itemList.size());
 
-		
-		
-		
-
 	}
 	
 	//Created by Qayyum
