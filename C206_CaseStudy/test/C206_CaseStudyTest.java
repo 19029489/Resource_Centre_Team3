@@ -6,16 +6,13 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 	
-	private User user1, user2;
+	
 	private Item item1, item2;
 
 	@Before
 	public void setUp() throws Exception {
+	
 		
-		/* Add User */
-		user1 = new User("Fish", "Member", "Fish@hotmail.com", "User");
-		user2 = new User("User", "Staff", "Fishmanh@fishmail.com", "UserPass");
-		UserDB.userList.clear();
 		
 		
 		/* Add Item */
@@ -26,10 +23,8 @@ public class C206_CaseStudyTest {
 	@After
 	public void tearDown() throws Exception {
 		
-		/* Reset User */
-		user1 = null;
-		user2 = null;
-		UserDB.userList.clear();
+		
+		
 	}
 
 	@Test
@@ -40,44 +35,6 @@ public class C206_CaseStudyTest {
 	
 	
 	
-	/* ADD USER TEST */
-	
-	// Created by Haziq at 24/8/2020
-	
-	@Test
-	public void addUserTest() {
-
-		// Test that the user list is 0 before adding users
-		assertEquals("Test that the user list is 0 before adding users", 0, UserDB.userList.size());
-		
-		//  Test that the user list is 1 after adding user (successful adding)
-		UserDB.addUser(user1);
-		assertEquals("Test that the user list is 0 before adding users", 1, UserDB.userList.size());
-		
-		// Test that user list can only store up to 2 users
-		UserDB.addUser(user2);
-		UserDB.addUser(user1);
-		assertTrue("Test that user list can only store up to 2 users", !(UserDB.userList.size() <= 2));
-		assertFalse("Test that user list can only store up to 2 users", !(UserDB.userList.size() > 2));
-	}
-	
-	@Test
-	public void delUserTest() {
-
-		// Test that the user list is not 0 before deleting users
-		UserDB.addUser(user1);
-		assertTrue("Test that the user list is not 0 before deleting users", !UserDB.userList.isEmpty());
-		
-		// Test that the user list is 0 after deleting users (successful delete)
-		UserDB.delUser("Fish");
-		assertEquals("Test that the user list is 0 after deleting users", 0, UserDB.userList.size());
-		
-		// Test that if the user enters an incorrect name, an error message will be displayed informing that the user doesn't exist
-		UserDB.addUser(user1);
-		UserDB.delUser("User");
-		
-		
-	}
 	
 	//Created by Qayyum
 	@Test
@@ -123,15 +80,70 @@ public class C206_CaseStudyTest {
 		
 	}
 	
+	//Created by Yee Hung
+	@Test
+	public void addCategoryTest() {
+		// Test catList is NOT null
+		assertNotNull("Test catList is NOT null", CategoryDB.catList);
+		
+		// Test size of catList is 0 before adding any categories
+		assertEquals("Test size of catList is 0 before adding any categories", 0, CategoryDB.catList.size());
+		
+		// Test size of catList is 1 after adding a category
+		CategoryDB.addCategory(cat1);
+		assertEquals("Test size of catList is 1 after adding a category", 1, CategoryDB.catList.size());
+		
+		// Test first element in catList is the same as what was added
+		assertSame("Test first element in catList is the same as what was added", cat1, CategoryDB.catList.get(0));
+	}
 	
 	@Test
-	public void viewAllUserTest() {
-
-		// Test that user list is not empty 
-		assertTrue("Test that user list is not empty ", UserDB.userList.isEmpty());
-		assertFalse("Test that user list is not empty ", !UserDB.userList.isEmpty());
+	public void viewAllCategoryTest() {
+		// Test catList is NOT null
+		assertNotNull("Test catList is NOT null", CategoryDB.catList);
+		
+		// Test categories retrieved from the catList is empty
+		assertEquals("Test categories retrieved from the catList is empty", 0, CategoryDB.catList.size());
+		
+		// Test size of catList is 3 after adding 3 categories
+		CategoryDB.addCategory(cat1);
+		CategoryDB.addCategory(cat2);
+		CategoryDB.addCategory(cat3);
+		assertEquals("Test size of catList is 3 after adding 3 categories", 3, CategoryDB.catList.size());
+		
+		// Test the expected output is same as the list of output
+		String expectedOutput = "";
+		expectedOutput += "Category [name=Foods]\n";
+		expectedOutput += "Category [name=Books]\n";
+		expectedOutput += "Category [name=Stationery]\n";
+		assertSame("Test the expected output is same as the list of output", expectedOutput, CategoryDB.allCategory());
 		
 	}
+	
+	@Test
+	public void delCategoryTest() {	
+		// Test catList is NOT null
+		assertNotNull("Test catList is NOT null", CategoryDB.catList);
+		
+		// Test categories retrieved from the catList is empty
+		assertEquals("Test categories retrieved from the catList is empty", 0, CategoryDB.catList.size());
+
+		// Test size of catList is 3 before delete any categories
+		CategoryDB.addCategory(cat1);
+		CategoryDB.addCategory(cat2);
+		CategoryDB.addCategory(cat3);
+		assertEquals("Test size of catList is 3 before delete any categories", 3, CategoryDB.catList.size());
+		
+		// Test size of catList is 2 after delete a category
+		CategoryDB.delCategory(cat2);
+		assertEquals("Test size of catList is 2 after delete a category", 2, CategoryDB.catList.size());
+	
+	}
+
+
+}
+	
+
 	
 
 

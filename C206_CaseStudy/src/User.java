@@ -5,12 +5,14 @@ public class User {
 	private String role;
 	private String email;
 	private String password;
+	private boolean isBlocked;
 	
 	public User(String a, String b, String c, String d){
 		username = a;
 		role = b;
 		email = c;
 		password = c;
+		isBlocked = false;
 	}
 	
 	public String getUsername() {
@@ -44,11 +46,25 @@ public class User {
 	public void setPassword(String a) {
 		password = a;
 	}
+	
+
+	public boolean isBlocked() {
+		return isBlocked;
+	}
+
+	public void setBlocked(boolean a) {
+		if(role.equals("Admin")) {
+			isBlocked = a;
+		}
+		
+	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", role=" + role + ", email=" + email + ", password=" + password + "]";
 	}
+	
+	
 	
 	
 }
