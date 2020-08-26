@@ -1,3 +1,5 @@
+// Create by Shawn Tan Jun Wei 26/08/2020
+
 public class Bid {
 
 	private String bidId;
