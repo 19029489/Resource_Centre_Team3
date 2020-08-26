@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Bid {
 
 	private String bidId;
