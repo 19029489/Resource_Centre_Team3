@@ -5,12 +5,14 @@ public class User {
 	private String role;
 	private String email;
 	private String password;
+	private boolean isBlocked;
 	
 	public User(String a, String b, String c, String d){
-		a = username;
-		b = role;
-		c = email;
-		d = password;
+		username = a;
+		role = b;
+		email = c;
+		password = d;
+		isBlocked = false;
 	}
 	
 	public String getUsername() {
@@ -18,7 +20,7 @@ public class User {
 	}
 	
 	public void setUsername(String a) {
-		a = username;
+		username = a;
 	}
 	
 	public String getRole() {
@@ -26,7 +28,7 @@ public class User {
 	}
 	
 	public void setRole(String a) {
-		a = role;
+		role = a;
 	}
 	
 	public String getEmail() {
@@ -34,7 +36,7 @@ public class User {
 	}
 	
 	public void setEmail(String a) {
-		a = email;
+		email = a;
 	}
 	
 	public String getPassword() {
@@ -42,13 +44,24 @@ public class User {
 	}
 	
 	public void setPassword(String a) {
-		a = password;
+		password = a;
+	}
+	
+
+	public boolean isBlocked() {
+		return isBlocked;
+	}
+
+	public void setBlocked(boolean a) {
+		isBlocked = a;
 	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", role=" + role + ", email=" + email + ", password=" + password + "]";
 	}
+	
+	
 	
 	
 }
