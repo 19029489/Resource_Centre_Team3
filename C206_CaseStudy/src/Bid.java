@@ -7,13 +7,15 @@ public class Bid {
 	private String sellerEmail;
 	private String buyerEmail;
 	private double bidPrice;
+	private boolean noResult;
 	
-	public Bid (String bidId, String itemName, String sellerEmail, String buyerEmail, double bidPrice){
+	public Bid (String bidId, String itemName, String sellerEmail, String buyerEmail, double bidPrice) {
 		this.bidId = bidId;
 		this.itemName = itemName;
 		this.sellerEmail = sellerEmail;
 		this.buyerEmail = buyerEmail;
 		this.bidPrice = bidPrice;
+		noResult = false;
 	}
 	
 	public String getBidId() {
@@ -54,6 +56,10 @@ public class Bid {
 	
 	public void setBidPrice(double bidPrice) {
 		this.bidPrice = bidPrice;
+	}
+	
+	public boolean noResult() {
+		return noResult;
 	}
 	
 	
