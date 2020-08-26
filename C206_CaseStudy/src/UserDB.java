@@ -72,10 +72,9 @@ public class UserDB extends User{
 		
 		if(check == false) {
 			System.out.println("No user with that email exists.");
-			return false;
-		}else {
-			return true;
 		}
+		
+		return check;
 	
 	}
 	
@@ -118,15 +117,18 @@ public class UserDB extends User{
 		
 	}
 	
-	public static boolean block(String email, boolean block){
+	public static boolean block(User admin, String memEmail, boolean block){
 		boolean status = false;
 		
-		for(int i = 0; i<userList.size(); i++) {
-			if(userList.get(i).getEmail().equals(email) & userList.get(i).getRole().equals("Admin")) {
-				userList.get(i).setBlocked(block);
-				status = true;
+		if(admin.getRole().equals("Admin")) {
+			for(int i = 0; i<userList.size(); i++) {
+				if(userList.get(i).getEmail().equals(memEmail)) {
+					userList.get(i).setBlocked(block);
+					status = true;
+				}
 			}
 		}
+		
 		return status;
 	}
 	

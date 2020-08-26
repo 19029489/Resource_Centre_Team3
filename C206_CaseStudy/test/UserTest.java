@@ -29,6 +29,10 @@ public class UserTest {
 		
 		user1 = null;
 		user2 = null;
+		user3 = null;
+		user4 = null;
+		user5 = null;
+		user6 = null;
 		UserDB.userList.clear();
 	}
 
@@ -168,9 +172,39 @@ public class UserTest {
 	}
 	
 	@Test
-	
 	public void blockTest() {
+		// Test that user list is populated with at least a Member before blocking
+		UserDB.addUser(user3);
+		boolean memberCheck = false;
+		for(int i = 0; i < UserDB.userList.size(); i++){
+			if(UserDB.userList.get(i).getRole().equals("Member")) {
+				memberCheck = true;
+			}
+		}
+		assertTrue("Test that user list is populated with at least a Member before blocking", memberCheck);
 		
+		// Test that user list is populated with at least an Admin before blocking
+		UserDB.addUser(user4);
+		boolean adminCheck = false;
+		for(int i = 0; i < UserDB.userList.size(); i++){
+			if(UserDB.userList.get(i).getRole().equals("Admin")) {
+				adminCheck = true;
+			}
+		}
+		assertTrue("Test that user list is populated with at least an Admin before blocking", adminCheck);
+		
+		// Test that an Admin can block a user
+		UserDB.block(user4, "User3@fishmail.com", true);
+		assertTrue("Test that an Admin can block a user", user3.isBlocked());
+		
+		// Test that an Admin can unblock a user
+		UserDB.block(user4, "User3@fishmail.com", false);
+		assertFalse("Test that an Admin can unblock a user", user3.isBlocked());
+		
+		// Test that a Member cannot block another user
+		UserDB.addUser(user5);
+		UserDB.block(user5, "User3@fishmail.com", true);
+		assertFalse("Test that a Member cannot block another user", user3.isBlocked());
 	}
 	
 	
