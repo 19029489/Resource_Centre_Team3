@@ -11,7 +11,7 @@ public class User {
 		username = a;
 		role = b;
 		email = c;
-		password = c;
+		password = d;
 		isBlocked = false;
 	}
 	
@@ -53,10 +53,7 @@ public class User {
 	}
 
 	public void setBlocked(boolean a) {
-		if(role.equals("Admin")) {
-			isBlocked = a;
-		}
-		
+		isBlocked = a;
 	}
 
 	@Override

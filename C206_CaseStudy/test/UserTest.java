@@ -9,13 +9,17 @@ import org.junit.Test;
 public class UserTest {
 
 
-	private User user1, user2;
+	private User user1, user2, user3, user4, user5, user6;
 
 	@Before
 	public void setUp() throws Exception {
 		
 		user1 = new User("Fish", "Member", "Fish@hotmail.com", "User");
 		user2 = new User("User", "Admin", "Fishman@fishmail.com", "UserPass");
+		user3 = new User("User3", "Member", "User3@fishmail.com", "UserPass3");
+		user4 = new User("User5", "Admin", "User4@fishmail.com", "UserPass4");
+		user5 = new User("User5", "Member", "User5@fishmail.com", "UserPass5");
+		user6 = new User("User6", "Member", "User6@fishmail.com", "UserPass6");
 		UserDB.userList.clear();
 	}
 
@@ -42,11 +46,19 @@ public class UserTest {
 		UserDB.addUser(user1);
 		assertEquals("Test that the user list is 0 before adding users", 1, UserDB.userList.size());
 		
-		// Test that user list can only store up to 2 users
+		// Test that user is unable to be added with duplicate email
+		//UserDB.addUser(user1);
+		//assertEquals("Test that the user list is 0 before adding users", 1, UserDB.userList.size());
+		
+		// Test that user list can only store up to 5 users
 		UserDB.addUser(user2);
-		UserDB.addUser(user1);
-		assertTrue("Test that user list can only store up to 2 users", !(UserDB.userList.size() <= 2));
-		assertFalse("Test that user list can only store up to 2 users", !(UserDB.userList.size() > 2));
+		UserDB.addUser(user3);
+		UserDB.addUser(user4);
+		UserDB.addUser(user5);
+		/* 6th user */ UserDB.addUser(user6);
+		assertEquals("Test that user list can only store up to 5 users", 5, UserDB.userList.size());
+		
+		
 	}
 	
 	/* DELETE USER TEST */
@@ -113,15 +125,52 @@ public class UserTest {
 	@Test
 	public void loginTest() {
 
-		// Test that user list is at 1 before searching
+		// Test that user list is at 1 before logging in
 		UserDB.addUser(user1);
 		assertEquals("Test that user list is at 1 before searching", 1, UserDB.userList.size());
 		
-		// Test that email input matches existing user
-		assertTrue("Test that user input email matches existing user", UserDB.searchUser("Fish@hotmail.com"));
+		// Test that user is able to login to existing user with correct email and password
+		boolean logTest = UserDB.login("Fish@hotmail.com", "User");
+		assertTrue("Test that user is able to login to existing user with correct email and password", logTest);
 		
-		// Test that incorrect email input does not match any user
-		assertFalse("Test that user input email matches existing user", UserDB.searchUser("Soup@rp.edu.sg"));
+		// Test that user is able to login to existing user with correct email (not case sensitive) and password
+		logTest = UserDB.login("FiSh@hOtMaIl.CoM", "User");
+		assertTrue("Test that user is able to login to existing user with correct email (not case sensitive) and password", logTest);
+		
+		// Test that user is unable to login to existing user with correct email but wrong password (case sensitive)
+		logTest = UserDB.login("Fish@hotmail.com", "user");
+		assertFalse("Test that user is unable to login to existing user with correct email but wrong password (case sensitive)", logTest);
+	
+		// Test that user is unable to login to existing user with wrong email
+		logTest = UserDB.login("Fisher@hotmail.com", "User");
+		assertFalse("Test that user is unable to login to existing user with wrong email", logTest);
+		
+	}
+	
+	@Test
+	public void updateUserTest() {
+		
+		// Test that user list is at 1 before logging in
+		UserDB.addUser(user1);
+		assertEquals("Test that user list is at 1 before searching", 1, UserDB.userList.size());
+		
+		// Test that user is able to update name and password based off their email successfully
+		String uTest = UserDB.updateUser("Fish@hotmail.com", "Johnny", "Lego");
+		assertEquals("Test that user is able to update name and password based off their email successfully", "Update successful.", uTest);
+		
+		// Test that user is unable to update name and password if either one are the same as their previous ones
+		uTest = UserDB.updateUser("Fish@hotmail.com", "Johnny", "Lego");
+		assertEquals("Test that user is able to update name and password based off their email successfully", "Please do not use the same username and password.", uTest);
+		
+		// Test that user is unable to update name and password if email used is invalid
+		uTest = UserDB.updateUser("Fisher@hotmail.com", "Johnny", "Lego");
+		assertEquals("Test that user is able to update name and password based off their email successfully", "No user with that email", uTest);
+	}
+	
+	@Test
+	
+	public void blockTest() {
+		
 	}
 	
 	
