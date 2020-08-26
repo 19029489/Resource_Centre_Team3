@@ -24,7 +24,7 @@ public class UserDB extends User{
 		String allUsers = "";
 		if(!userList.isEmpty()) {
 			for(int i = 0; i < userList.size(); i++) {
-				allUsers += String.format("Username: %s\nRole: %s\nEmail: %s\n", userList.get(i).getUsername(), userList.get(i).getRole(), userList.get(i).getEmail());
+				allUsers += String.format("%-30s %-20s %-10s %-5s\n", userList.get(i).getEmail(), userList.get(i).getUsername(), userList.get(i).getRole(), showAvailability(userList.get(i).isBlocked()));
 			}
 		}else {
 			
@@ -37,21 +37,20 @@ public class UserDB extends User{
 	
 	/* DELETE USER */
 	
-	public static void delUser(String name) {
+	public static void delUser(String email) {
 		
 		boolean check = false;
 			for(int i = 0; i<userList.size(); i++) {
-				if(userList.get(i).getUsername().equals(name)) {
+				if(userList.get(i).getEmail().equals(email)) {
 					userList.remove(i);
 					check = true;
 				}
 				
-				
 			}
-		
-		
 		if(check == false) {
-			System.out.println("Username does not exist.");
+			System.out.println("Email does not exist.");
+		}else {
+			System.out.println("Account successfully deleted.");
 		}
 
 	}
@@ -63,7 +62,7 @@ public class UserDB extends User{
 		boolean check = false;
 		for(int i = 0; i<userList.size(); i++) {
 			if(userList.get(i).getEmail().equals(email)) {
-				System.out.println(String.format("Username: %s\nRole: %s\nEmail: %s", userList.get(i).getUsername(), userList.get(i).getRole(), userList.get(i).getEmail()));
+				System.out.println(String.format("%-30s %-20s %-10s %-5s\n", userList.get(i).getEmail(), userList.get(i).getUsername(), userList.get(i).getRole(), showAvailability(userList.get(i).isBlocked())));
 				check = true;
 				
 			}
@@ -84,16 +83,27 @@ public class UserDB extends User{
 	public static boolean login(String email, String password) {
 		boolean check = false;
 		
+		String msg="";
 		for(int i = 0; i<userList.size(); i++) {
-			if(userList.get(i).getEmail().equalsIgnoreCase(email) && userList.get(i).getPassword().equals(password)) {
+			if(userList.get(i).isBlocked() == true) {
+				msg = "This user is currently blocked. Please contact your local admin.";
+			}else if(userList.get(i).getEmail().equalsIgnoreCase(email) && userList.get(i).getPassword().equals(password)) {
 				check = true;
+				msg = "Login successful.";
 			}
 			
 		}
 		
+		if(check == false && msg.equals("")) {
+			msg = "Login failed.";
+		}
+		
+		System.out.println(msg);
 		return check;
 		
 	}
+	
+	/*UPDATE USER*/
 	
 	public static String updateUser(String email, String name, String pWord) {
 		
@@ -107,9 +117,7 @@ public class UserDB extends User{
 				}else {
 					msg = "Please do not use the same username and password.";
 				}
-			}else {
-				msg = "No user with that email";
-			}	
+			}
 		}
 		
 		return msg;
@@ -117,12 +125,14 @@ public class UserDB extends User{
 		
 	}
 	
+	/* BLOCK USER */
+	
 	public static boolean block(User admin, String memEmail, boolean block){
 		boolean status = false;
 		
 		if(admin.getRole().equals("Admin")) {
 			for(int i = 0; i<userList.size(); i++) {
-				if(userList.get(i).getEmail().equals(memEmail)) {
+				if(userList.get(i).getEmail().equals(memEmail) && !memEmail.equals(admin.getEmail())) {
 					userList.get(i).setBlocked(block);
 					status = true;
 				}
@@ -130,6 +140,19 @@ public class UserDB extends User{
 		}
 		
 		return status;
+	}
+	
+	/* Show availability */
+	
+	public static String showAvailability(boolean isAvailable) {
+		String avail;
+
+		if (isAvailable == true) {
+			avail = "Yes";
+		} else {
+			avail = "No";
+		}
+		return avail;
 	}
 	
 }

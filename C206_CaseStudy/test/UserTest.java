@@ -26,7 +26,6 @@ public class UserTest {
 	@After
 	public void tearDown() throws Exception {
 		
-		
 		user1 = null;
 		user2 = null;
 		user3 = null;
@@ -75,13 +74,13 @@ public class UserTest {
 		assertTrue("Test that the user list is not empty before deleting users", !UserDB.userList.isEmpty());
 		
 		// Test that the user list is 0 after deleting users (successful delete)
-		UserDB.delUser("Fish");
+		UserDB.delUser("Fish@hotmail.com");
 		assertEquals("Test that the user list is 0 after deleting users", 0, UserDB.userList.size());
 		
-		// Test that user list remains at 1 if delete with incorrect username
+		// Test that user list remains at 1 if delete with incorrect email
 		UserDB.addUser(user1);
-		UserDB.delUser("User");
-		assertEquals("Test that user list remains at 1 if delete with incorrect username", 1, UserDB.userList.size());
+		UserDB.delUser("User@user.com");
+		assertEquals("Test that user list remains at 1 if delete with incorrect email", 1, UserDB.userList.size());
 		
 		
 	}
@@ -98,13 +97,13 @@ public class UserTest {
 		
 		// Test that when user list is populated with 1 user, the returned String is properly shown
 		UserDB.addUser(user1);
-		String u1Test = "Username: Fish\nRole: Member\nEmail: Fish@hotmail.com\n";
+		String u1Test = String.format("%-30s %-20s %-10s %-5s\n", "Fish@hotmail.com", "Fish", "Member", "No");
 		assertEquals("Test that when user list is populated with 1 user, the returned String is properly shown", u1Test, UserDB.viewAllUser());
 		
 		// Test that when user list is populated with 2 users, the returned String is properly shown
 		UserDB.addUser(user2);
-		String u2Test = "Username: Fish\nRole: Member\nEmail: Fish@hotmail.com\n";
-		u2Test += "Username: User\nRole: Admin\nEmail: Fishman@fishmail.com\n";
+		String u2Test = String.format("%-30s %-20s %-10s %-5s\n", "Fish@hotmail.com", "Fish", "Member", "No");
+		u2Test += String.format("%-30s %-20s %-10s %-5s\n", "Fishman@fishmail.com", "User", "Admin", "No");
 		assertEquals("Test that when user list is populated with 2 users, the returned String is properly shown", u2Test, UserDB.viewAllUser());
 	}
 	
@@ -151,6 +150,8 @@ public class UserTest {
 		
 	}
 	
+	/* UPDATE USER TEST */
+	
 	@Test
 	public void updateUserTest() {
 		
@@ -166,10 +167,10 @@ public class UserTest {
 		uTest = UserDB.updateUser("Fish@hotmail.com", "Johnny", "Lego");
 		assertEquals("Test that user is able to update name and password based off their email successfully", "Please do not use the same username and password.", uTest);
 		
-		// Test that user is unable to update name and password if email used is invalid
-		uTest = UserDB.updateUser("Fisher@hotmail.com", "Johnny", "Lego");
-		assertEquals("Test that user is able to update name and password based off their email successfully", "No user with that email", uTest);
+		
 	}
+	
+	/* BLOCK USER TEST */
 	
 	@Test
 	public void blockTest() {
