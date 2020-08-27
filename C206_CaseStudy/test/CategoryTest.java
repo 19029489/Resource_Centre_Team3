@@ -5,13 +5,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CategoryTest {
-
+	
+	private Category cat1, cat2, cat3;
+	
 	@Before
 	public void setUp() throws Exception {
+		cat1 = new Category("Books");
+		cat2 = new Category("Stationary");
+		cat3 = new Category("Foods");
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		cat1 = null;
+		CategoryDB.catList.clear();
 	}
 
 	@Test
