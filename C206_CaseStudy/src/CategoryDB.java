@@ -16,7 +16,7 @@ public class CategoryDB {
 		return output;
 	}
 	
-	public static void delCategory(Category cat) {
+	public static void delCategory(String cat) {
 		catList.remove(cat);
 	}
 

@@ -76,7 +76,7 @@ public class CategoryTest {
 		assertEquals("Test size of catList is 3 before delete a category", 3, CategoryDB.catList.size());
 		
 		// Test size of catList is 2 after delete a category
-		CategoryDB.delCategory(cat2);
+		CategoryDB.delCategory("Stationary");
 		assertEquals("Test size of catList is 2 after delete a category", 2, CategoryDB.catList.size());
 		
 		// Test the deleted category is no longer in the catList
