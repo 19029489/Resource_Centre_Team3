@@ -32,7 +32,8 @@ public class CategoryMain {
 //							Search category
 							setHeader("Add Catergory");
 							String addOption = Helper.readString("Enter the name of category > ");
-							CategoryDB.addCategory(addOption);
+							Category cat = new Category(addOption);
+							CategoryDB.addCategory(cat);
 						}
 						else if (optionAdmin == 3) {
 //							Search category

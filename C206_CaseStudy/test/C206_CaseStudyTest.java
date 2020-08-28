@@ -8,11 +8,15 @@ public class C206_CaseStudyTest {
 	
 	
 	private Item item1, item2;
+	private Category cat1, cat2, cat3;
 
 	@Before
 	public void setUp() throws Exception {
 	
-		
+		/*Add Category*/
+		cat1 = new Category("Books");
+		cat2 = new Category("Stationary");
+		cat3 = new Category("Foods");
 		
 		
 		/* Add Item */
@@ -22,6 +26,14 @@ public class C206_CaseStudyTest {
 
 	@After
 	public void tearDown() throws Exception {
+		cat1 = null;
+		cat2 = null;
+		cat3 = null;
+		CategoryDB.catList.clear();
+		
+		item1 = null;
+		item2 = null;
+		ItemDB.itemList.clear();
 		
 		
 		

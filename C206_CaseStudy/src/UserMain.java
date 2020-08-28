@@ -31,7 +31,7 @@ public class UserMain {
 				// For now, Buyer and Seller menu are exactly the same as they can't be linked to anything here. Once combined, there will be other functions.
 				if(loginCheck == true) {
 					for(int i = 0; i < UserDB.userList.size(); i++) {
-						
+						 
 						if(UserDB.userList.get(i).getEmail().equals(email) && UserDB.userList.get(i).getRole().equalsIgnoreCase("Seller")) {
 							// If logged in as a Seller, display Seller menu
 							
