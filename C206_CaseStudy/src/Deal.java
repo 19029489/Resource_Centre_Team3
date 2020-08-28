@@ -67,8 +67,8 @@ public class Deal {
 
 	@Override
 	public String toString() {
-		return "Deal [dealID=" + dealID + ", itemName=" + itemName + ", buyerEmail=" + buyerEmail + ", sellerEmail="
-				+ sellerEmail + ", dealPrice=" + dealPrice + ", closeDate=" + closeDate + "]";
+		String dealMade = String.format("%-15s %-20s %-20s %-20s %-20.2f %-20s", dealID, itemName, sellerEmail, buyerEmail, dealPrice, closeDate);
+		return dealMade;
 	}
 	
 	

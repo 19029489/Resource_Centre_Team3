@@ -12,7 +12,7 @@ public class BidDB extends Bid{
 	
 	/* VIEW ALL BIDS */
 	
-	public static viewAllBid() {
+	public static void viewAllBid() {
 		boolean noResult = false;
 		String allBid = "";
 		int i = 0;

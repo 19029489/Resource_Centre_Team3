@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-//Created by Huai Yu 24/8/2020
+//Created by Huai Yu
 public class DealTest {
 
 	private Deal deal1, deal2;
@@ -56,15 +56,10 @@ public class DealTest {
 		DealDB.addDeal(deal2);
 		assertTrue("Test that size of dealList has at least 1 deal before deletion of deal", DealDB.dealList.size() > 0);
 		
-		//Test that size of dealLIst is 1 after deletion of 1 deal of 2
-		String id = "001";
-		for (int i=0; i< DealDB.dealList.size(); i++){
-			if (DealDB.dealList.get(i).getDealID() == id) {
-				DealDB.dealList.remove(DealDB.dealList.get(i));
-			}
-		}
+		//Test that size of dealList is 1 after deletion of 1 deal of 2
+		DealDB.delDeal("001");
 		
-		assertEquals("Test that size of dealLIst is 0 after deletion of deal", 1, DealDB.dealList.size());
+		assertEquals("Test that size of dealList is 1 after deletion of 1 deal of 2", 1, DealDB.dealList.size());
 		
 		//Test that the deal deleted is the same as the one deleted
 		assertSame("Test that the deal deleted is the same as the one deleted", "002", DealDB.dealList.get(0).getDealID());
