@@ -95,23 +95,34 @@ public class CategoryTest {
 		// Test catList is empty
 		assertEquals("Test catList is empty", 0, CategoryDB.catList.size());
 
-		// Test size of catList is 3 before delete a category
+		// Test size of catList is 3
 		CategoryDB.addCategory(cat1);
 		CategoryDB.addCategory(cat2);
 		CategoryDB.addCategory(cat3);
-		assertEquals("Test size of catList is 3 before delete a category", 3, CategoryDB.catList.size());
+		assertEquals("Test size of catList is 3", 3, CategoryDB.catList.size());
 		
-		// Test size of catList is 2 after delete a category
-		CategoryDB.delCategory(cat2);
-		assertEquals("Test size of catList is 2 after delete a category", 2, CategoryDB.catList.size());
-		
-		// Test the deleted category is no longer in the catList
-		String expectedOutput = "";
-		expectedOutput += cat1.getName().toString() + "\n";
-		expectedOutput += cat3.getName().toString() + "\n";
-		assertEquals("Test the expected output is same as the list of output", expectedOutput, CategoryDB.viewAllCategory());
-	
+		// Test that "Stationary" is in catList
+		assertTrue("Test that input matched with category", CategoryDB.searchCategoryDB("Books"));
 	}
 	
+	@Test
+	public void updateCategoryDB() {	
+		// Test catList is NOT null
+		assertNotNull("Test catList is NOT null", CategoryDB.catList);
+		
+		// Test catList is empty
+		assertEquals("Test catList is empty", 0, CategoryDB.catList.size());
 
+		// Test size of catList is 3
+		CategoryDB.addCategory(cat1);
+		CategoryDB.addCategory(cat2);
+		CategoryDB.addCategory(cat3);
+		assertEquals("Test size of catList is 3", 3, CategoryDB.catList.size());
+		
+		// Test that "Stationary" is replaced to "Drinks"
+		CategoryDB.updateCategory("Stationary", "Drinks");
+		assertTrue("Test that 'Stationary' is replaced to 'Drinks'", CategoryDB.searchCategoryDB("Drinks"));
+		assertFalse("Test that 'Stationary' is replaced to 'Drinks'", CategoryDB.searchCategoryDB("Stationary"));
+	}
+	
 }
