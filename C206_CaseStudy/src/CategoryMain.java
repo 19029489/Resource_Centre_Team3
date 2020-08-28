@@ -74,7 +74,7 @@ public class CategoryMain {
 						}
 						else if (optionSeller == 2) {
 //							Search category
-							setHeader("Search Catergory");
+							setHeader("Search Category");
 							String searchOption = Helper.readString("Enter the name of category > ");
 							CategoryDB.searchCategoryDB(searchOption);
 						}
@@ -90,6 +90,7 @@ public class CategoryMain {
 						if (optionBuyer == 1) {
 //							View all category
 							viewAllCategory();
+							break;
 						}
 						else if (optionBuyer == 2) {
 //							Search category
@@ -164,7 +165,7 @@ public class CategoryMain {
 	}
 	
 	public static void viewAllCategory() {
-		setHeader("Catergory List");
+		setHeader("Category List");
 		CategoryDB.viewAllCategory();
 	}
 

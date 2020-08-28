@@ -8,12 +8,16 @@ public class CategoryDB {
 		catList.add(cat);
 	}
 	
-	public static String viewAllCategory() {
-		String output = "";
-		for (int i = 0; i < catList.size(); i++) {
-			output += catList.get(i).getName() + "\n";
+	public static void viewAllCategory() {
+		if (catList.size() > 0) {
+			for (int i = 0; i < catList.size(); i++) {
+				System.out.println(catList.get(i).getName() + "\n");
+			}
 		}
-		return output;
+		else {
+			System.out.println("No categories in the list.");
+		}
+		
 	}
 	
 	public static void delCategory(String cat) {
