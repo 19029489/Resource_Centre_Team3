@@ -18,6 +18,8 @@ public class CategoryTest {
 	@After
 	public void tearDown() throws Exception {
 		cat1 = null;
+		cat2 = null;
+		cat3 = null;
 		CategoryDB.catList.clear();
 	}
 
@@ -42,8 +44,8 @@ public class CategoryTest {
 		// Test catList is NOT null
 		assertNotNull("Test catList is NOT null", CategoryDB.catList);
 		
-		// Test categories retrieved from the catList is empty
-		assertEquals("Test categories retrieved from the catList is empty", 0, CategoryDB.catList.size());
+		// Test catList is empty
+		assertEquals("Test catList is empty", 0, CategoryDB.catList.size());
 		
 		// Test size of catList is 3 after adding 3 categories
 		CategoryDB.addCategory(cat1);
@@ -53,11 +55,10 @@ public class CategoryTest {
 		
 		// Test the expected output is same as the list of output
 		String expectedOutput = "";
-		expectedOutput += "Category [name=Foods]\n";
-		expectedOutput += "Category [name=Books]\n";
-		expectedOutput += "Category [name=Stationery]\n";
-		assertSame("Test the expected output is same as the list of output", expectedOutput, CategoryDB.allCategory());
-		
+		expectedOutput += cat1.getName().toString() + "\n";
+		expectedOutput += cat2.getName().toString() + "\n";
+		expectedOutput += cat3.getName().toString() + "\n";
+		assertEquals("Test the expected output is same as the list of output", expectedOutput, CategoryDB.viewAllCategory());
 	}
 	
 	@Test
@@ -65,19 +66,52 @@ public class CategoryTest {
 		// Test catList is NOT null
 		assertNotNull("Test catList is NOT null", CategoryDB.catList);
 		
-		// Test categories retrieved from the catList is empty
-		assertEquals("Test categories retrieved from the catList is empty", 0, CategoryDB.catList.size());
+		// Test catList is empty
+		assertEquals("Test catList is empty", 0, CategoryDB.catList.size());
 
-		// Test size of catList is 3 before delete any categories
+		// Test size of catList is 3 before delete a category
 		CategoryDB.addCategory(cat1);
 		CategoryDB.addCategory(cat2);
 		CategoryDB.addCategory(cat3);
-		assertEquals("Test size of catList is 3 before delete any categories", 3, CategoryDB.catList.size());
+		assertEquals("Test size of catList is 3 before delete a category", 3, CategoryDB.catList.size());
 		
 		// Test size of catList is 2 after delete a category
 		CategoryDB.delCategory(cat2);
 		assertEquals("Test size of catList is 2 after delete a category", 2, CategoryDB.catList.size());
+		
+		// Test the deleted category is no longer in the catList
+		String expectedOutput = "";
+		expectedOutput += cat1.getName().toString() + "\n";
+		expectedOutput += cat3.getName().toString() + "\n";
+		assertEquals("Test the expected output is same as the list of output", expectedOutput, CategoryDB.viewAllCategory());
 	
 	}
+	
+	@Test
+	public void searchCategoryDB() {	
+		// Test catList is NOT null
+		assertNotNull("Test catList is NOT null", CategoryDB.catList);
+		
+		// Test catList is empty
+		assertEquals("Test catList is empty", 0, CategoryDB.catList.size());
+
+		// Test size of catList is 3 before delete a category
+		CategoryDB.addCategory(cat1);
+		CategoryDB.addCategory(cat2);
+		CategoryDB.addCategory(cat3);
+		assertEquals("Test size of catList is 3 before delete a category", 3, CategoryDB.catList.size());
+		
+		// Test size of catList is 2 after delete a category
+		CategoryDB.delCategory(cat2);
+		assertEquals("Test size of catList is 2 after delete a category", 2, CategoryDB.catList.size());
+		
+		// Test the deleted category is no longer in the catList
+		String expectedOutput = "";
+		expectedOutput += cat1.getName().toString() + "\n";
+		expectedOutput += cat3.getName().toString() + "\n";
+		assertEquals("Test the expected output is same as the list of output", expectedOutput, CategoryDB.viewAllCategory());
+	
+	}
+	
 
 }

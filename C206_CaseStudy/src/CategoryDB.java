@@ -8,12 +8,11 @@ public class CategoryDB {
 		catList.add(cat);
 	}
 	
-	public static Object allCategory() {
+	public static String viewAllCategory() {
 		String output = "";
 		for (int i = 0; i < catList.size(); i++) {
-			output += catList.get(i) + "\n";
+			output += catList.get(i).getName() + "\n";
 		}
-		
 		return output;
 	}
 	
@@ -21,7 +20,9 @@ public class CategoryDB {
 		catList.remove(cat);
 	}
 
-
+	public static void searchCategoryDB(Category cat) {
+		catList.remove(cat);
+	}
 
 
 
