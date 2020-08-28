@@ -8,19 +8,24 @@ public class DealDB extends Deal{
 		public static void main(String[] args) {
 			
 			//Dummy deals
-			Deal deal1 = new Deal("001", "Antique Mug", "ng@gmail.com", "hy@hotmail.com", 50.0, "30/8/2020");
-			Deal deal2 = new Deal("002", "Antique Bowl", "hy@hotmail.com", "ng@gmail.com", 30.0, "24/9/2020");
+			Deal deal1 = new Deal("001", "Antique Mug", "ng@gmail.com", "hy@hotmail.com", 50.0, "30/08/2020");
+			Deal deal2 = new Deal("002", "Antique Bowl", "hy@hotmail.com", "ng@gmail.com", 30.0, "24/09/2020");
 			
 			//Add dummy deals
 			addDeal(deal1);
 			addDeal(deal2);
+			
+			
+			//Prompt for validity check for email and date
+			String prompt = "";
+			
 			
 			//Repeat loop for the menu
 			int dealOption = 0;
 			while (dealOption != 6) {
 				dealMenu();
 				
-				dealOption = Helper.readInt("Enter an option > ");
+				dealOption = Helper.readInt("\nEnter an option > ");
 				
 				
 				
@@ -43,54 +48,31 @@ public class DealDB extends Deal{
 					String itemName = Helper.readString("Item Name > ");
 					
 					//Check for seller email validity
-					boolean contains = true;
+			
 					String sellerEmail = Helper.readString("Seller's Email > ");					
 					
-					while (contains) {
-						
-						for(int i = 0; i<dealList.size(); i++) {
-							
-							if(!sellerEmail.contains("@") || !sellerEmail.contains(".")){
-								
-								System.out.println("Invalid email. Email should contain '@' and '.'");
-								sellerEmail = Helper.readString("Seller's Email > ");
-							
-							}else{
-								contains = false;
-							}
-						}
-					}
+					prompt = "Seller's Email > ";
+					
+					DealDB.emailValidityCheck(sellerEmail, prompt);
 					
 						
 					//Check for Buyer email validity
-					contains = true;
 					String buyerEmail = Helper.readString("Buyer's Email > ");
 					
-					while (contains) {
-						if (buyerEmail.contains("@") == false || buyerEmail.contains(".") == false) {
-							System.out.println("Your email has to include '@' and '.' to be valid.");
-							buyerEmail = Helper.readString("Buyer's Email > ");
-						}
-						else {
-							contains = false;
-						}
-					}
+					prompt = "Buyer's Email > ";
+					
+					DealDB.emailValidityCheck(sellerEmail, prompt);
+					
 					
 					double transPrice = Helper.readDouble("Transaction Price > ");
 					
-					contains = true;
 					
 					//Check date format
 					String closeDate = Helper.readString("Closing Date (dd/mm/yyyy) > ");
-					while (contains) {
-						if (!closeDate.contains("/")) {
-							System.out.println("Your closing date must follow the format (dd/mm/yyyy). Please enter the date again.");
-							closeDate = Helper.readString("Closing Date (dd/mm/yyyy) > ");
-						}
-						else {
-							contains = false;
-						}
-					}
+					
+					prompt = "Closing Date (dd/mm/yyyy) > ";
+					
+					dateValidityCheck(closeDate, prompt);
 					
 					
 					Deal deal3 = new Deal(dealID, itemName, sellerEmail, buyerEmail, transPrice, closeDate);
@@ -115,23 +97,17 @@ public class DealDB extends Deal{
 					while (optionSearch != 6) {
 						searchMenu();
 						
-						dealOption = Helper.readInt("Enter an option > ");
+						optionSearch = Helper.readInt("\nEnter an option > ");
 						
 						if (optionSearch == 1) {
 							setHeader("Search by Email");
 							boolean contains = true;
 							String email = Helper.readString("Enter Buyer/Seller email to search > ");
 							
-							//Check email validity
-							while (contains) {
-								if (email.contains("@") == false || email.contains(".") == false) {
-									System.out.println("Your email has to include '@' and '.' to be valid.");
-									email = Helper.readString("Enter Buyer/Seller email to search > ");
-								}
-								else {
-									contains = false;
-								}
-							}
+							prompt = "Enter Buyer/Seller email to search > ";
+							
+							DealDB.emailValidityCheck(email, prompt);
+							
 							
 							searchDeal(optionSearch, email);
 							
@@ -153,19 +129,11 @@ public class DealDB extends Deal{
 						
 						else if (optionSearch == 4) {
 							setHeader("Search by Close Date");
-							boolean contains = true;
 							String date = Helper.readString("Enter close date (dd/mm/yyyy) to search > ");
 							
-							//Check date format
-							while (contains) {
-								if (!date.contains("/")) {
-									System.out.println("Your closing date must follow the format (dd/mm/yyyy). Please enter the date again.");
-									date = Helper.readString("Enter close date (dd/mm/yyyy) to search > ");
-								}
-								else {
-									contains = false;
-								}
-							}
+							prompt = "Enter close date (dd/mm/yyyy) to search > ";
+							
+							dateValidityCheck(date, prompt);
 							
 							searchDeal(optionSearch, date);
 						}
@@ -179,7 +147,7 @@ public class DealDB extends Deal{
 						}
 						
 						else if(optionSearch == 6) {
-							System.out.println("Going back to Deal Menu...");
+							System.out.println("\nGoing back to Deal Menu...");
 						}
 						
 						else {
@@ -196,53 +164,41 @@ public class DealDB extends Deal{
 					viewAllDeals();
 					boolean contains = true;
 					
-					String dealID = Helper.readString("Please enter the deal ID for the deal to update > ");
-					System.out.println("Please enter new details to replace old details. Re-enter old details to keep those the same.");
+					String dealID = Helper.readString("\nPlease enter the deal ID for the deal to update > ");
+					System.out.println("\nPlease enter new details to replace old details. Re-enter old details to keep those the same.");
 					
 					double newDealPrice = Helper.readDouble("New deal price > ");
 					
 					//Check date format
 					String newCloseDate = Helper.readString("New closing date > ");
-					while (contains) {
-						if (!newCloseDate.contains("/")) {
-							System.out.println("Your closing date must follow the format (dd/mm/yyyy). Please enter the date again.");
-							newCloseDate = Helper.readString("New closing date > ");
-						}
-						else {
-							contains = false;
-						}
-					}
 					
-					//Check sellerEmail validity
+					prompt = "New closing date > ";
+					
+					dateValidityCheck(newCloseDate, prompt);
+					
+				
 					contains = true;
 					String newSellerEmail = Helper.readString("New seller email > ");
-					while (contains) {
-						if (newSellerEmail.contains("@") == false || newSellerEmail.contains(".") == false) {
-							System.out.println("Your email has to include '@' and '.' to be valid.");
-							newSellerEmail = Helper.readString("New seller email > ");
-						}
-						else {
-							contains = false;
-						}
-					}
 					
-					//Check buyer email validity
+					prompt = "New seller email > ";
+					
+					emailValidityCheck(newSellerEmail, prompt);
+					
+					
 					contains = true;
 					String newBuyerEmail = Helper.readString("New buyer email > ");
-					while (contains) {
-						if (newBuyerEmail.contains("@") == false || newBuyerEmail.contains(".") == false) {
-							System.out.println("Your email has to include '@' and '.' to be valid.");
-							newBuyerEmail = Helper.readString("New buyer email > ");
-						}
-						else {
-							contains = false;
-						}
-					}
+					
+					prompt = "New buyer email > ";
+					
+					emailValidityCheck(newBuyerEmail, prompt);
+					
 					
 					String newItemName = Helper.readString("New Item Name > ");
-					
-					DealDB.updateDeal(dealID, newItemName, newDealPrice, newSellerEmail, newBuyerEmail, newCloseDate);
-					
+					System.out.println("");
+					System.out.println(DealDB.updateDeal(dealID, newItemName, newDealPrice, newSellerEmail, newBuyerEmail, newCloseDate));
+				}
+				else if(dealOption == 6) {
+					System.out.println("Thank you for your time.");
 				}
 				
 				else {
@@ -461,6 +417,36 @@ public class DealDB extends Deal{
 			Helper.line(200, "-");
 			System.out.println(header);
 			Helper.line(200, "-");
+		}
+		
+		//Email Validity Check
+		private static void emailValidityCheck(String email, String prompt) {
+			boolean contains = true;
+			
+			while (contains) {
+				if (email.contains("@") == false || email.contains(".") == false) {
+					System.out.println("Your email has to include '@' and '.' to be valid.");
+					email = Helper.readString(prompt);
+				}
+				else {
+					contains = false;
+				}
+			}
+		}
+		
+		//Date Validity Check
+		private static void dateValidityCheck(String date, String prompt) {
+			boolean contains = true;
+			
+			while (contains) {
+				if (!date.contains("/")) {
+					System.out.println("Your closing date must follow the format (dd/mm/yyyy). Please enter the date again.");
+					date = Helper.readString(prompt);
+				}
+				else {
+					contains = false;
+				}
+			}
 		}
 
 
