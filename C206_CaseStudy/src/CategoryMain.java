@@ -23,31 +23,37 @@ public class CategoryMain {
 					categoryMenuAdmin();
 					int optionAdmin = 0;
 					optionAdmin = Helper.readInt("Enter an option > ");
-					while (optionAdmin != 6) {
+					while (optionAdmin != 7) {
 						if (optionAdmin == 1) {
 //							View all category
 							viewAllCategory();
 						}
 						else if (optionAdmin == 2) {
 //							Search category
+							setHeader("Add Catergory");
+							String addOption = Helper.readString("Enter the name of category > ");
+							CategoryDB.addCategory(addOption);
+						}
+						else if (optionAdmin == 3) {
+//							Search category
 							setHeader("Search Catergory");
 							String searchOption = Helper.readString("Enter the name of category > ");
 							CategoryDB.searchCategoryDB(searchOption);
 						}
-						else if (optionAdmin == 3) {
+						else if (optionAdmin == 4) {
 //							Update category
 							setHeader("Update Catergory");
 							String updateOption = Helper.readString("Enter the name of category > ");
 							String newOption = Helper.readString("Enter the new name of category > ");
 							CategoryDB.updateCategory(updateOption, newOption);
 						}
-						else if (optionAdmin == 4) {
+						else if (optionAdmin == 5) {
 //							Delete category
 							setHeader("Delete Catergory");
 							String deleteOption = Helper.readString("Enter the name of category > ");
 							CategoryDB.delCategory(deleteOption);								
 						}
-						else if (optionAdmin == 5) {
+						else if (optionAdmin == 6) {
 //							Category report
 							categoryReport();
 						}
@@ -117,11 +123,12 @@ public class CategoryMain {
 	public static void categoryMenuAdmin() {
 		setHeader("Campus Online Auction Shop (COAS) - Administrator Menu");
 		System.out.println("1. View all category");
-		System.out.println("2. Search category");
-		System.out.println("3. Update category");
-		System.out.println("4. Delete category");
-		System.out.println("5. Category report");
-		System.out.println("6. Logout");
+		System.out.println("2. Add category");
+		System.out.println("3. Search category");
+		System.out.println("4. Update category");
+		System.out.println("5. Delete category");
+		System.out.println("6. Category report");
+		System.out.println("7. Logout");
 		Helper.line(80, "-");
 	}
 	
