@@ -49,10 +49,6 @@ public class UserTest {
 		UserDB.addUser(user1);
 		assertEquals("Test that the user list is 0 before adding users", 1, UserDB.userList.size());
 		
-		// Test that user is unable to be added with duplicate email
-		//UserDB.addUser(user1);
-		//assertEquals("Test that the user list is 0 before adding users", 1, UserDB.userList.size());
-		
 		// Test that user list can only store up to 5 users
 		UserDB.addUser(user2);
 		UserDB.addUser(user3);
@@ -77,7 +73,7 @@ public class UserTest {
 		UserDB.delUser("Fish@hotmail.com");
 		assertEquals("Test that the user list is 0 after deleting users", 0, UserDB.userList.size());
 		
-		// Test that user list remains at 1 if delete with incorrect email
+		// Test that user list remains at 1 if delete with incorrect email (unsuccessful  delete)
 		UserDB.addUser(user1);
 		UserDB.delUser("User@user.com");
 		assertEquals("Test that user list remains at 1 if delete with incorrect email", 1, UserDB.userList.size());
