@@ -14,12 +14,12 @@ public class UserTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		user1 = new User("Fish", "Member", "Fish@hotmail.com", "User");
+		user1 = new User("Fish", "Buyer", "Fish@hotmail.com", "User");
 		user2 = new User("User", "Admin", "Fishman@fishmail.com", "UserPass");
-		user3 = new User("User3", "Member", "User3@fishmail.com", "UserPass3");
+		user3 = new User("User3", "Seller", "User3@fishmail.com", "UserPass3");
 		user4 = new User("User5", "Admin", "User4@fishmail.com", "UserPass4");
-		user5 = new User("User5", "Member", "User5@fishmail.com", "UserPass5");
-		user6 = new User("User6", "Member", "User6@fishmail.com", "UserPass6");
+		user5 = new User("User5", "Seller", "User5@fishmail.com", "UserPass5");
+		user6 = new User("User6", "Buyer", "User6@fishmail.com", "UserPass6");
 		UserDB.userList.clear();
 	}
 
@@ -93,12 +93,12 @@ public class UserTest {
 		
 		// Test that when user list is populated with 1 user, the returned String is properly shown
 		UserDB.addUser(user1);
-		String u1Test = String.format("%-30s %-20s %-10s %-5s\n", "Fish@hotmail.com", "Fish", "Member", "No");
+		String u1Test = String.format("%-30s %-20s %-10s %-5s\n", "Fish@hotmail.com", "Fish", "Buyer", "No");
 		assertEquals("Test that when user list is populated with 1 user, the returned String is properly shown", u1Test, UserDB.viewAllUser());
 		
 		// Test that when user list is populated with 2 users, the returned String is properly shown
 		UserDB.addUser(user2);
-		String u2Test = String.format("%-30s %-20s %-10s %-5s\n", "Fish@hotmail.com", "Fish", "Member", "No");
+		String u2Test = String.format("%-30s %-20s %-10s %-5s\n", "Fish@hotmail.com", "Fish", "Buyer", "No");
 		u2Test += String.format("%-30s %-20s %-10s %-5s\n", "Fishman@fishmail.com", "User", "Admin", "No");
 		assertEquals("Test that when user list is populated with 2 users, the returned String is properly shown", u2Test, UserDB.viewAllUser());
 	}
@@ -174,7 +174,7 @@ public class UserTest {
 		UserDB.addUser(user3);
 		boolean memberCheck = false;
 		for(int i = 0; i < UserDB.userList.size(); i++){
-			if(UserDB.userList.get(i).getRole().equals("Member")) {
+			if(UserDB.userList.get(i).getRole().equalsIgnoreCase("Buyer") || UserDB.userList.get(i).getRole().equalsIgnoreCase("Seller")) {
 				memberCheck = true;
 			}
 		}
@@ -184,7 +184,7 @@ public class UserTest {
 		UserDB.addUser(user4);
 		boolean adminCheck = false;
 		for(int i = 0; i < UserDB.userList.size(); i++){
-			if(UserDB.userList.get(i).getRole().equals("Admin")) {
+			if(UserDB.userList.get(i).getRole().equalsIgnoreCase("Admin")) {
 				adminCheck = true;
 			}
 		}

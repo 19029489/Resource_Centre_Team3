@@ -1,3 +1,4 @@
+// Created by Haziq at 28/8/2020
 public class UserMain {
 	
 	public static void main(String[] args) {
@@ -5,9 +6,9 @@ public class UserMain {
 		boolean noRepeat = false;
 		
 		// User Dummy
-		User dummy1 = new User("member","Member","member@member.com", "member");
+		User dummy1 = new User("buyer","Buyer","buyer@buyer.com", "member");
 		User dummy2 = new User("admin","Admin","admin@admin.com", "admin");
-		User dummy3 = new User("dummy3","Member","d3@hotmail.com", "pass3");
+		User dummy3 = new User("seller","Seller","seller@seller.com", "seller");
 		
 		UserDB.addUser(dummy1);
 		UserDB.addUser(dummy2);
@@ -26,14 +27,16 @@ public class UserMain {
 				String password = Helper.readString("Enter password > ");
 				boolean loginCheck = UserDB.login(email, password);
 				
+				
+				// For now, Buyer and Seller menu are exactly the same as they can't be linked to anything here. Once combined, there will be other functions.
 				if(loginCheck == true) {
 					for(int i = 0; i < UserDB.userList.size(); i++) {
 						
-						if(UserDB.userList.get(i).getEmail().equals(email) && UserDB.userList.get(i).getRole().equals("Member")) {
-							// If logged in as a Member, display Member menu
+						if(UserDB.userList.get(i).getEmail().equals(email) && UserDB.userList.get(i).getRole().equalsIgnoreCase("Seller")) {
+							// If logged in as a Seller, display Seller menu
 							
 							while(noRepeatLogged == false) {
-								loggedInMenuMember();
+								loggedInMenuSeller();
 								int memOption = Helper.readInt("Enter an option > ");
 								
 								if(memOption == 1) {
@@ -65,7 +68,42 @@ public class UserMain {
 								}
 							}
 						
-						}else if(UserDB.userList.get(i).getEmail().equals(email) && UserDB.userList.get(i).getRole().equals("Admin")) {
+						}else if(UserDB.userList.get(i).getEmail().equals(email) && UserDB.userList.get(i).getRole().equalsIgnoreCase("Buyer")) {
+							// If logged in as a Buyer, display Buyer menu
+							
+							while(noRepeatLogged == false) {
+								loggedInMenuBuyer();
+								int memOption = Helper.readInt("Enter an option > ");
+								
+								if(memOption == 1) {
+									// View all users
+									setHeader("USER LIST");
+									String output = String.format("%-30s %-20s %-10s %-5s\n", "EMAIL", "USERNAME","ROLE", "BLOCKED");
+									output += UserDB.viewAllUser();
+									
+									System.out.println(output);
+									
+								}else if(memOption == 2) {
+									// Search user
+									setHeader("SEARCH USER");
+									String sMail = Helper.readString("Enter email > ");
+									System.out.println(String.format("%-30s %-20s %-10s %-5s", "EMAIL", "USERNAME","ROLE", "BLOCKED"));
+									UserDB.searchUser(sMail);
+									
+								}else if(memOption == 3) {
+									// Update account
+									setHeader("UPDATE ACCOUNT");
+									String nName = Helper.readString("Enter new name > ");
+									String nPassword = Helper.readString("Enter new password > ");
+									System.out.println(UserDB.updateUser(UserDB.userList.get(i).getEmail(), nName, nPassword));
+								
+								}else if(memOption == 4) {
+									// Log out
+									System.out.println("Logged out, you have.");
+									noRepeatLogged = true;
+								}
+							}
+						}else if(UserDB.userList.get(i).getEmail().equals(email) && UserDB.userList.get(i).getRole().equalsIgnoreCase("Admin")) {
 							// If logged in as an Admin, display Admin menu
 							
 							while(noRepeatLogged == false) {
@@ -162,8 +200,17 @@ public class UserMain {
 		Helper.line(80, "-");
 	}
 	
-	public static void loggedInMenuMember() {
-		setHeader("Campus Online Auction Shop (COAS) - Member Menu");
+	public static void loggedInMenuSeller() {
+		setHeader("Campus Online Auction Shop (COAS) - Seller Menu");
+		System.out.println("1. View all users");
+		System.out.println("2. Search user");
+		System.out.println("3. Update account");
+		System.out.println("4. Log out");
+		Helper.line(80, "-");
+	}
+	
+	public static void loggedInMenuBuyer() {
+		setHeader("Campus Online Auction Shop (COAS) - Buyer Menu");
 		System.out.println("1. View all users");
 		System.out.println("2. Search user");
 		System.out.println("3. Update account");
@@ -190,8 +237,8 @@ public class UserMain {
 		String role = "";
 		
 		while(roleCheck == false) {
-			role = Helper.readString("Enter your role (Member/Admin) > ");
-			if(role.equals("Member") || role.equals("Admin")) {
+			role = Helper.readString("Enter your role (Buyer/Seller/Admin) > ");
+			if(role.equals("Seller") || role.equals("Buyer") || role.equals("Admin")) {
 				roleCheck = true;
 			}
 		}
