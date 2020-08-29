@@ -7,12 +7,20 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	
 	
+<<<<<<< HEAD
 	
+=======
+	private Item item1, item2;
+	private Category cat1, cat2, cat3;
+>>>>>>> branch 'master' of https://github.com/19029489/Resource_Centre_Team3.git
 
 	@Before
 	public void setUp() throws Exception {
 	
-		
+		/*Add Category*/
+		cat1 = new Category("Books");
+		cat2 = new Category("Stationary");
+		cat3 = new Category("Foods");
 		
 		
 		
@@ -20,6 +28,14 @@ public class C206_CaseStudyTest {
 
 	@After
 	public void tearDown() throws Exception {
+		cat1 = null;
+		cat2 = null;
+		cat3 = null;
+		CategoryDB.catList.clear();
+		
+		item1 = null;
+		item2 = null;
+		ItemDB.itemList.clear();
 		
 		
 		

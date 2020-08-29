@@ -85,7 +85,7 @@ public class UserDB extends User{
 		
 		String msg="";
 		for(int i = 0; i<userList.size(); i++) {
-			if(userList.get(i).isBlocked() == true) {
+			if(userList.get(i).getEmail().equalsIgnoreCase(email) && userList.get(i).getPassword().equals(password) && userList.get(i).isBlocked() == true) {
 				msg = "This user is currently blocked. Please contact your local admin.";
 			}else if(userList.get(i).getEmail().equalsIgnoreCase(email) && userList.get(i).getPassword().equals(password)) {
 				check = true;
