@@ -138,6 +138,6 @@ public class C206_CaseStudyTest {
 		assertEquals("Test size of catList is 2 after delete a category", 2, CategoryDB.catList.size());
 	
 	}
-
+	
 
 }
