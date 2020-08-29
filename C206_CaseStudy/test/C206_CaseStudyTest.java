@@ -6,13 +6,8 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 	
-	
-<<<<<<< HEAD
-	
-=======
 	private Item item1, item2;
 	private Category cat1, cat2, cat3;
->>>>>>> branch 'master' of https://github.com/19029489/Resource_Centre_Team3.git
 
 	@Before
 	public void setUp() throws Exception {
