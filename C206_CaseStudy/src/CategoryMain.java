@@ -100,7 +100,6 @@ public class CategoryMain {
 					if (optionBuyer == 1) {
 	//					View all category
 						viewAllCategory();
-						break;
 					}
 					else if (optionBuyer == 2) {
 	//					Search category
