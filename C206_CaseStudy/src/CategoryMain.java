@@ -19,7 +19,6 @@ public class CategoryMain {
 		
 		while (optionUser != 4) {
 			
-			
 			if (optionUser == 1) {
 	//			Administrator
 				categoryMenuAdmin();
@@ -60,7 +59,10 @@ public class CategoryMain {
 	//					Category report
 						categoryReport();
 					}
-					userMenu();
+					else {
+						System.out.println("Invalid Option! Please try again!");
+					}
+					categoryMenuAdmin();
 					optionAdmin = Helper.readInt("Enter an option > ");
 				}
 			}
@@ -81,6 +83,10 @@ public class CategoryMain {
 						String searchOption = Helper.readString("Enter the name of category > ");
 						CategoryDB.searchCategoryDB(searchOption);
 					}
+					else {
+						System.out.println("Invalid Option! Please try again!");
+					}
+					categoryMenuSeller();
 					optionSeller = Helper.readInt("Enter an option > ");
 				}
 			}
@@ -102,9 +108,20 @@ public class CategoryMain {
 						String searchOption = Helper.readString("Enter the name of category > ");
 						CategoryDB.searchCategoryDB(searchOption);
 					}
+					else {
+						System.out.println("Invalid Option! Please try again!");
+					}
+					categoryMenuBuyer();
 					optionBuyer = Helper.readInt("Enter an option > ");
 				}
 			}
+			
+			else {
+				System.out.println("Invalid Option! Please try again!");
+			}
+			
+			userMenu();
+			optionUser = Helper.readInt("Enter an option > ");
 			
 		}
 	}
