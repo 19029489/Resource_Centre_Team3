@@ -71,9 +71,9 @@ public class BidMain {
 
 	}
 	
-	public static void setHeader(String header) {
+	public static void setHeader(String setHeader) {
 		Helper.line(80, "-");
-		System.out.println(header);
+		System.out.println(setHeader);
 		Helper.line(80, "-");
 	}
 
