@@ -11,11 +11,11 @@ public class CategoryDB {
 	public static void viewAllCategory() {
 		if (catList.size() > 0) {
 			for (int i = 0; i < catList.size(); i++) {
-				System.out.println(catList.get(i).getName() + "\n");
+				System.out.println(catList.get(i).getName());
 			}
 		}
 		else {
-			System.out.println("No categories in the list.");
+			System.out.println("No categories in the list");
 		}
 		
 	}
