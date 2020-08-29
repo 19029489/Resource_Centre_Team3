@@ -48,23 +48,20 @@ public class ItemMainMenu  {
 				System.out.println(output);
 				
 				String itemDelete = Helper.readString("Enter item name to delete > ");
+				ItemDB.deleteItem(itemDelete);
 				
-				if(ItemDB.itemList.contains(itemDelete)) {
 					
-					
-					ItemDB.deleteItem(itemDelete);
-					System.out.println("Item has been deleted successfully");
 				
-					System.out.println(output);
-				}
 			} else if (option == 4) {
+				// Search item
 				ItemMainMenu.setHeader("SEARCH ITEM");
 				
-				String itemSearch = Helper.readString("Enter item to search > ");
 				
-				System.out.println(String.format("%-10s\n", "ITEM"));
-			   
+				String output = String.format("%-10s", "ITEM");
+				
+				String itemSearch = Helper.readString("Enter item to search > ");
 				ItemDB.searchItem(itemSearch);
+				
 				
 			}
 			
@@ -72,6 +69,60 @@ public class ItemMainMenu  {
 
 	}
 	
+	
+	private static void menu() {
+		// TODO Auto-generated method stub
+		
+		ItemMainMenu.setHeader("Campus Online Auction Shop");
+		System.out.println("1. View All Items");
+		System.out.println("2. Add item");
+		System.out.println("3. Delete item");
+		System.out.println("4. Search item");
+		System.out.println("5. Quit");
+		Helper.line(80, "-");
+		
+	}
+	
+	
+	
+	//option 1 view all items
+		public static String retrieveAllItem(ArrayList<Item> itemList) {
+			String output = "";
+
+			for (int i = 0; i < itemList.size(); i++) {
+
+				output += String.format("%-10s %-30s\n", itemList.get(i).getName(),
+						itemList.get(i).getDescription()); 
+						
+			}
+			return output;
+		}
+		
+		
+		
+		
+		private static  void viewAllItem(ArrayList<Item> itemList) {
+			// TODO Auto-generated method stub
+			ItemMainMenu.setHeader("ITEM LIST");
+			
+			String output = "";
+			
+			for (int i = 0; i < itemList.size(); i++) {
+
+				output += String.format("%-10s %-30s %-10.2f %-20s %-20s %-10.2f\n", "NAME","DESCRIPTION", "MINIMUM PRICE","START DATE","END DATE", "BID INCREMENT");
+				
+				output += retrieveAllItem(itemList);
+				
+				System.out.println(output);
+						
+			}
+			
+			
+		}
+	
+	
+	
+	//option 2 add item
 	private static Item inputItem() {
 		// TODO Auto-generated method stub
 		String item = Helper.readString("Enter item name > ");
@@ -88,7 +139,6 @@ public class ItemMainMenu  {
 	
 	
 	
-	//option 2 add item
 	private static void addItem(ArrayList<Item> itemList, Item itemNew) {
 		// TODO Auto-generated method stub
 		itemList.add(itemNew);
@@ -106,22 +156,12 @@ public class ItemMainMenu  {
 		
 	}
 
-
-	private static void menu() {
+	
+	
+	//option 3 delete item
+	private static String retriveItemDelete(ArrayList<Item> itemList) {
 		// TODO Auto-generated method stub
 		
-		ItemMainMenu.setHeader("Campus Online Auction Shop");
-		System.out.println("1. View All Items");
-		System.out.println("2. Add item");
-		System.out.println("3. Delete item");
-		System.out.println("4. Search item");
-		System.out.println("5. Quit");
-		Helper.line(80, "-");
-		
-	}
-	
-	//option 1 view all items
-	public static String retrieveAllItem(ArrayList<Item> itemList) {
 		String output = "";
 
 		for (int i = 0; i < itemList.size(); i++) {
@@ -131,29 +171,61 @@ public class ItemMainMenu  {
 					
 		}
 		return output;
+		
+	
+		
+	}
+	
+
+	private static void deleteItem(ArrayList<Item> itemList, Item itemDelete) {
+		// TODO Auto-generated method stub
+		itemList.remove(itemDelete);
+		System.out.println("Item deleted");
+		
 	}
 	
 	
-	
-	
-	private static  void viewAllItem(ArrayList<Item> itemList) {
-		// TODO Auto-generated method stub
-		ItemMainMenu.setHeader("ITEM LIST");
-		
-		String output = "";
-		
-		for (int i = 0; i < itemList.size(); i++) {
+	//option 4 search item
+		private static String retriveItemSearch(ArrayList<Item> itemList) {
+			// TODO Auto-generated method stub
+			
+			String output = "";
 
-			output += String.format("%-10s %-30s %-10.2f %-20s %-20s %-10.2f\n", "NAME","DESCRIPTION", "MINIMUM PRICE","START DATE","END DATE", "BID INCREMENT");
+			for (int i = 0; i < itemList.size(); i++) {
+				
+				output += String.format("%-10s %-30s\n", itemList.get(i).getName(),
+						itemList.get(i).getDescription()); 
+						
+			}
+			return output;
 			
-			output += retrieveAllItem(itemList);
+		
 			
-			System.out.println(output);
-					
 		}
 		
 		
-	}
+		private static void searchItem(ArrayList<Item> itemList, Item item) {
+			// TODO Auto-generated method stub
+			String output ="";
+			
+			
+			
+			for(int i = 0; i < itemList.size(); i++) {
+				String itemSearch = Helper.readString("Enter item to search > ");
+				if(itemList.get(i).getName().equals(itemSearch)) {
+					
+			    output +=(String.format("%-10s %-30s\n", itemList.get(i).getName(), itemList.get(i).getDescription()));
+					
+			    System.out.println(output);
+				}
+				
+			}
+			
+			
+		}
+	
+	
+	
 	
 	
 

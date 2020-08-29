@@ -54,7 +54,7 @@ public class ItemDB extends Item{
 		
 		for(int i = 0; i < itemList.size(); i++) {
 			if(itemList.get(i).getName().equals(item)) {
-				if(! blockedItemList.get(i).getName().equals(item)) {
+				if(! itemList.get(i).getName().equals(item)) {
 					System.out.println (String.format("Item: %s", itemList.get(i).getName()));
 				}
 				
