@@ -57,6 +57,7 @@ public class BidMain {
 	} else {
 		System.out.println("Invalid option");
 	}
+	}
 	
 	public static void menu() {
 		Bid.setHeader("COAS - Campus Online Auction Shop");
