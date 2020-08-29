@@ -6,22 +6,31 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 	
-	
 	private Item item1, item2;
+	private Category cat1, cat2, cat3;
 
 	@Before
 	public void setUp() throws Exception {
 	
+		/*Add Category*/
+		cat1 = new Category("Books");
+		cat2 = new Category("Stationary");
+		cat3 = new Category("Foods");
 		
 		
 		
-		/* Add Item */
-		item1 = new Item("Vase","Glass Vase",10.00, "30 Aug 2020", "1 Sept 2020",5.00);
-		item2 = new Item("Handphone Cover","Silicone Hello Kitty Handphone Cover", 20.00, "26 Aug 2020", "5 Sept 2020",5.00);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		cat1 = null;
+		cat2 = null;
+		cat3 = null;
+		CategoryDB.catList.clear();
+		
+		item1 = null;
+		item2 = null;
+		ItemDB.itemList.clear();
 		
 		
 		
@@ -36,45 +45,11 @@ public class C206_CaseStudyTest {
 	
 	
 	
-	//Created by Qayyum
-	@Test
-	public void addItemTest() {
-		// Test that Item list can be empty before adding
-		assertEquals("Test that the item list can be empty before adding",1, ItemDB.itemList.size());
-		
-		
-		// Test that after adding, item list size should increase 
-		ItemDB.itemList.add(item1);
-		assertEquals("Test that after adding, item list should increase", 2, ItemDB.itemList.size());
-
-	}
 	
-	//Created by Qayyum
-	@Test
-	public void deleteItemTest() {
-
-		// When item is deleted, item list should decreased 
-		ItemDB.itemList.remove(item1);
-		assertEquals("When item is deleted, item list should decreased ", 0, ItemDB.itemList.size());
-		
-		UserDB.delUser("Vase");
-		assertEquals("When item is deleted, item list should decreased", 0, ItemDB.itemList.size());
-		
-		// If item list is not empty, item is ready to be deleted
-		ItemDB.itemList.add(item1);
-		assertTrue("If item list is not empty, item is ready to be deleted", !ItemDB.itemList.isEmpty());
-
-	}
 	
-	//Created by Qayyum
-	@Test
-	public void viewAllItemTest() {
+	
+	
 
-		// Test that item list is not empty, it should be able to view items 
-		assertTrue("If item list is not empty, it should be able to view items  ", !ItemDB.itemList.isEmpty());
-		assertFalse("If item list is empty, it should not be able to view items  ", ItemDB.itemList.isEmpty());
-		
-	}
 
 
 

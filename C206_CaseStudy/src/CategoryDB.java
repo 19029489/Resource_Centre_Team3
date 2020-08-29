@@ -8,21 +8,40 @@ public class CategoryDB {
 		catList.add(cat);
 	}
 	
-	public static Object allCategory() {
-		String output = "";
-		for (int i = 0; i < catList.size(); i++) {
-			output += catList.get(i) + "\n";
+	public static void viewAllCategory() {
+		if (catList.size() > 0) {
+			for (int i = 0; i < catList.size(); i++) {
+				System.out.println(catList.get(i).getName());
+			}
+		}
+		else {
+			System.out.println("No categories in the list");
 		}
 		
-		return output;
 	}
 	
-	public static void delCategory(Category cat) {
+	public static void delCategory(String cat) {
 		catList.remove(cat);
 	}
 
+	public static boolean searchCategoryDB(String cat) {
+		boolean isFound = false;
+		for (int i = 0; i < catList.size(); i++) {
+			if (catList.get(i).getName().equals(cat)) {
+				isFound = true;
+			}	
+		}		
+		return isFound;
+	}
 
-
-
+	public static void updateCategory(String cat, String newCat) {
+		for (int i = 0; i < catList.size(); i++) {
+			if (catList.get(i).getName().equals(cat)) {
+				catList.get(i).setName(newCat);
+				break;
+			}	
+		}
+		
+	}
 
 }

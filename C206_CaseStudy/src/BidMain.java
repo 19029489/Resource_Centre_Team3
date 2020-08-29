@@ -57,6 +57,7 @@ public class BidMain {
 	} else {
 		System.out.println("Invalid option");
 	}
+	
 	}
 	
 	public static void menu() {
@@ -68,6 +69,12 @@ public class BidMain {
 		System.out.println("5. Quit");
 		Helper.line(80, "-");
 
+	}
+	
+	public static void setHeader(String header) {
+		Helper.line(80, "-");
+		System.out.println(header);
+		Helper.line(80, "-");
 	}
 
 }
