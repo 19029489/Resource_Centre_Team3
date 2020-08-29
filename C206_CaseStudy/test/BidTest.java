@@ -29,6 +29,7 @@ public class BidTest {
 		bidList = null;
 	}
 
+	// Created by Shawn Tan Jun Wei
 	@Test
 	public void addBidtest() {
 		
@@ -46,6 +47,7 @@ public class BidTest {
 		assertSame("Test that the first element in catlist is the same as what it was added", bid1, bidList.get(0));
 	}
 	
+	// Created by Shawn Tan Jun Wei
 	@Test
 	public void viewBidTest() {
 		
@@ -63,6 +65,7 @@ public class BidTest {
 		assertSame("Test that the first element is added in bidList", bid1, bidList.get(1));
 	}
 	
+	// Created by Shawn Tan Jun Wei
 	@Test
 	public void deleteBidTest() {
 		
@@ -76,8 +79,26 @@ public class BidTest {
 		// Test if the list of bids all removed
 		C206_CaseStudy.bidList.clear();
 		assertSame("Test if the list of bids all removed", bid1, bidList.clear());
-	}	
+	}
+	
+	// Created by Shawn Tan Jun Wei
+	@Test
+	public void cancelBidTest() {
+		// Test if the bid list is not null firest
+		assertNotNull("Test if the bid list is not null", bidList);
+	
+	// Test if the list of bids has been cancelled
+	String allBid = C206_CaseStudy.retrieveAllBid(bidList);
+	String testOutput = "";
+	assertEquals("Check if the bid has been cancelled", testOutput, allBid);
+	
+	
+	// Test if the bidding has been cancelled
+	C206_CaseStudy.bidList.clear();
+	assertSame("Test if the bidding item has been cancelled", bid1, bidList.clear());
+	}
 	
 }
+
 	
 	
