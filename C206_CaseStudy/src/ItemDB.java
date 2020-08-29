@@ -22,16 +22,20 @@ public class ItemDB extends Item{
 	}
 	
 	//view all items
-	public static void viewAllItem() {
+	public static String viewAllItem() {
 		
+		String allItems = "";
 		if(!itemList.isEmpty()) {
 			for(int i = 0; i < itemList.size(); i++) {
-				System.out.println(String.format("Item: %s\nDescription: %s\nMinimum price: %d\nStart date: %s\nEnd date: %s\nBid increment: %d\n", itemList.get(i).getName(), itemList.get(i).getDescription(), itemList.get(i).getMinPrice(), 
+			allItems += (String.format("Item: %s\nDescription: %s\nMinimum price: %.2f\nStart date: %s\nEnd date: %s\nBid increment: %.2f\n", itemList.get(i).getName(), itemList.get(i).getDescription(), itemList.get(i).getMinPrice(), 
 						itemList.get(i).getStartDate(),itemList.get(i).getEndDate(), itemList.get(i).getBidIncrement()));
 			}
 		}else {
-			System.out.println("There are no items available.");
+			allItems += ("There are no items available.");
 		}
+		return allItems;
+		
+		
 
 	}
 	
