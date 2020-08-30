@@ -419,7 +419,7 @@ public class DealDB extends Deal{
 				else if(dealOption == 7) {
 					
 					int buyerOption = 0;
-					while (buyerOption != 5) {
+					while (buyerOption != 4) {
 						buyerMenu();
 						
 						buyerOption = Helper.readInt("\nEnter an option > ");
