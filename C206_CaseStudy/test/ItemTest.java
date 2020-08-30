@@ -44,8 +44,6 @@ public class ItemTest {
 			ItemDB.itemList.remove(item1);
 			assertEquals("When item is deleted, item list should decreased ", 0, ItemDB.itemList.size());
 			
-			UserDB.delUser("Vase");
-			assertEquals("When item is deleted, item list should decreased", 0, ItemDB.itemList.size());
 			
 			// If item list is not empty, item is ready to be deleted
 			ItemDB.itemList.add(item1);
