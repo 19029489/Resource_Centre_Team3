@@ -1,15 +1,19 @@
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+
 //Created by Huai Yu
 public class DealDB extends Deal{
 	
 	//Creating deal List
 	public static ArrayList<Deal> dealList = new ArrayList<Deal>();
+	public static ArrayList<Deal> closedDealList = new ArrayList<Deal>();
 		
 		public static void main(String[] args) {
 			
 			//Dummy deals
 			Deal deal1 = new Deal("001", "Antique Mug", "ng@gmail.com", "hy@hotmail.com", 50.0, "30/08/2020");
-			Deal deal2 = new Deal("002", "Antique Bowl", "hy@hotmail.com", "ng@gmail.com", 30.0, "24/09/2020");
+			Deal deal2 = new Deal("002", "Antique Bowl", "hy@hotmail.com", "ng@gmail.com", 30.0, "24/07/2020");
 			
 			//Add dummy deals
 			addDeal(deal1);
@@ -22,7 +26,7 @@ public class DealDB extends Deal{
 			
 			//Repeat loop for the menu
 			int dealOption = 0;
-			while (dealOption != 6) {
+			while (dealOption != 8) {
 				dealMenu();
 				
 				dealOption = Helper.readInt("\nEnter an option > ");
@@ -197,7 +201,216 @@ public class DealDB extends Deal{
 					System.out.println("");
 					System.out.println(DealDB.updateDeal(dealID, newItemName, newDealPrice, newSellerEmail, newBuyerEmail, newCloseDate));
 				}
+				
+				
+				//======================================================================== View Seller Functions ============================================================
 				else if(dealOption == 6) {
+					
+					int sellerOption = 0;
+					while (sellerOption != 5) {
+						sellerMenu();
+						
+						sellerOption = Helper.readInt("\nEnter an option > ");
+						
+						
+						//===================================== Seller comment whether buyer paid after close date ==============================================
+						if (sellerOption == 1) {
+							setHeader("Indicate Buyer's payment");
+							
+							addToClosedDealList();
+							
+							//View List
+							if (closedDealList.size() >= 1) {
+								System.out.println(String.format("%-15s %-20s %-20s %-20s %-20s %-20s %-20s %-20s", "Deal ID", "Item Name", "Seller's Email", "Buyer's Email", "Deal Price", "Closing Date", "Status", "Validation of Payment"));
+								Helper.line(200, "-");
+								for (int o =0; o<closedDealList.size(); o++) {
+									System.out.println(String.format("%-15s %-20s %-20s %-20s %-20.2f %-20s %-20s %-20s", closedDealList.get(o).getDealID(), closedDealList.get(o).getItemName(), closedDealList.get(o).getSellerEmail(), closedDealList.get(o).getBuyerEmail(), closedDealList.get(o).getDealPrice(), closedDealList.get(o).getCloseDate(), closedDealList.get(o).getCancel(), closedDealList.get(o).getValidation()));
+								}
+								
+								String dealChosen = Helper.readString("\nWhich deal buyer to validate? Please state the deal ID > ");
+								
+								int count = 0;
+								
+								//Check if deal exists
+								for (int o = 0; o < closedDealList.size(); o++) {
+									if (closedDealList.get(o).getDealID().equalsIgnoreCase(dealChosen)) {
+										char validation = Helper.readChar("Has buyer with email '" + closedDealList.get(o).getBuyerEmail() + "' paid? (Y/N) > ");
+										
+										prompt = "Has buyer with email '" + closedDealList.get(o).getBuyerEmail() + "' paid? (Y/N) > ";
+										
+										//Check Y/N validity
+										charValidityCheck(validation, prompt);
+										
+										closedDealList.get(o).setValidation(validation);
+										System.out.println("Validation saved");
+									}
+									else {
+										count = count + 1;
+									}
+								}
+								
+								if (count == closedDealList.size()) {
+									System.out.println("No such deal exists");
+								}
+								
+								
+							}
+							else {
+								System.out.println("There are currently no closed deals.");
+									
+							}
+	
+						}
+						
+						//============================================= Seller has to pay penalty fee for canceling deal ========================================
+						else if (sellerOption == 2){
+							setHeader("Cancel Deal");
+							
+							addToClosedDealList();
+							
+								
+							char notice = Helper.readChar("Please note that when a seller cancels a deal, a penalty is deducted. Confirmed? (Y/N) > ");
+							
+							prompt = "Please note that when a seller cancels a deal, a penalty is deducted. Confirmed? (Y/N) > ";
+							
+							charValidityCheck(notice, prompt);
+							
+							if (notice == 'Y' || notice == 'y') {
+								//View List
+								if (closedDealList.size() >= 1) {
+									System.out.println(String.format("%-15s %-20s %-20s %-20s %-20s %-20s %-20s %-20s", "Deal ID", "Item Name", "Seller's Email", "Buyer's Email", "Deal Price", "Closing Date", "Status", "Validation of Payment"));
+									Helper.line(200, "-");
+									for (int o = 0; o<closedDealList.size(); o++) {
+										System.out.println(String.format("%-15s %-20s %-20s %-20s %-20.2f %-20s %-20s %-20s", closedDealList.get(o).getDealID(), closedDealList.get(o).getItemName(), closedDealList.get(o).getSellerEmail(), closedDealList.get(o).getBuyerEmail(), closedDealList.get(o).getDealPrice(), closedDealList.get(o).getCloseDate(), closedDealList.get(o).getCancel(), closedDealList.get(o).getValidation()));
+									}
+									
+									String sellerCancelDeal = Helper.readString("\nWhich deal to cancel? Please state the deal ID > ");
+									
+									for (int o = 0; o < closedDealList.size(); o++) {
+										if (closedDealList.get(o).getDealID().equalsIgnoreCase(sellerCancelDeal)) {
+											char confirmation = Helper.readChar("Are you sure you want to cancel deal with deal ID '" + closedDealList.get(o).getDealID() + "' ? (Y/N) > ");
+											
+											prompt = "Are you sure you want to cancel deal with deal ID '" + closedDealList.get(o).getDealID() + "' ? (Y/N) > ";
+											
+											charValidityCheck(confirmation, prompt);
+											
+											if (confirmation == 'Y' || confirmation == 'y') {
+												closedDealList.get(o).setCancel("CANCELLED BY SELLER");
+												System.out.println("Deal Cancelled");
+												
+											}
+										}
+										else {
+											System.out.println("\nThere are currently no closed deals.");
+										}
+									}
+										
+									
+								}
+								
+							}
+							else {
+								System.out.println("\nSeller cannot cancel deal without paying the penalty fee, returning back to Seller Menu...");
+							}
+						}
+						
+						
+						//======================================= View all bids for item after close date =============================================
+						else if (sellerOption == 3) {
+							setHeader("View all bids for item");
+							
+							
+						}
+						
+						//======================================= View transaction history =============================================
+						else if (sellerOption == 4) {
+							setHeader("View Transaction History");
+							
+							
+						}
+						
+						//======================================= End ===================================================================
+						else if (sellerOption == 5){
+							System.out.println("\nBack to Deal Menu...");
+						}
+						
+						else {
+							System.out.println("\nInvalid Option");
+						}
+					}
+				}
+				
+				
+				//======================================================================== View Buyer Functions ============================================================
+				else if(dealOption == 7) {
+					
+					int buyerOption = 0;
+					while (buyerOption != 5) {
+						buyerMenu();
+						
+						buyerOption = Helper.readInt("\nEnter an option > ");
+						
+						//=========================================================== Cancel Deal ===========================================================
+						if (buyerOption == 1) {
+							addToClosedDealList();
+
+							//View List
+							if (closedDealList.size() >= 1) {
+								System.out.println(String.format("%-15s %-20s %-20s %-20s %-20s %-20s %-20s %-20s", "Deal ID", "Item Name", "Seller's Email", "Buyer's Email", "Deal Price", "Closing Date", "Status", "Validation of Payment"));
+								Helper.line(200, "-");
+								for (int o = 0; o<closedDealList.size(); o++) {
+									System.out.println(String.format("%-15s %-20s %-20s %-20s %-20.2f %-20s %-20s %-20s", closedDealList.get(o).getDealID(), closedDealList.get(o).getItemName(), closedDealList.get(o).getSellerEmail(), closedDealList.get(o).getBuyerEmail(), closedDealList.get(o).getDealPrice(), closedDealList.get(o).getCloseDate(), closedDealList.get(o).getCancel(), closedDealList.get(o).getValidation()));
+								}
+								
+								String sellerCancelDeal = Helper.readString("\nWhich deal to cancel? Please state the deal ID > ");
+								
+								for (int o = 0; o < closedDealList.size(); o++) {
+									if (closedDealList.get(o).getDealID().equalsIgnoreCase(sellerCancelDeal)) {
+										char confirmation = Helper.readChar("Are you sure you want to cancel deal with deal ID '" + closedDealList.get(o).getDealID() + "' ? (Y/N) > ");
+										
+										prompt = "Are you sure you want to cancel deal with deal ID '" + closedDealList.get(o).getDealID() + "' ? (Y/N) > ";
+										
+										charValidityCheck(confirmation, prompt);
+										
+										if (confirmation == 'Y' || confirmation == 'y') {
+											closedDealList.get(o).setCancel("CANCELLED BY BUYER");
+											System.out.println("Deal Cancelled");
+											
+										}
+									}
+									else {
+										System.out.println("\nThere are currently no closed deals.");
+									}
+								}
+									
+								
+							}
+						
+						}
+						
+						//=================================================================  Give Ratings and feedback to Seller ==============================================
+						else if (buyerOption == 2){
+							setHeader("Give")
+						}
+						
+						else if (buyerOption == 3){
+							
+						}
+						
+						else if (buyerOption == 4){
+							
+						}
+						
+						else {
+							System.out.println("\nInvalid Option");
+						}
+					}
+					
+				}
+				
+				
+				//======================================================================== End ============================================================
+				else if(dealOption == 8) {
 					System.out.println("Thank you for your time.");
 				}
 				
@@ -208,6 +421,57 @@ public class DealDB extends Deal{
 			}
 		}
 
+
+
+		//Buyer Menu
+		private static void buyerMenu() {
+			System.out.println(" ");
+			System.out.println("=== Buyer Options ===");
+			System.out.println("1. Cancel Deal");
+			System.out.println("2. Give rating and feedback to seller");
+			System.out.println("3. View Transaction History");
+			System.out.println("4. Back to Deal Menu");
+		}
+
+		
+		//Seller Menu
+		private static void sellerMenu() {
+			System.out.println(" ");
+			System.out.println("=== Seller Options ===");
+			System.out.println("1. Indicate Buyer's payment");
+			System.out.println("2. Cancel Deal");
+			System.out.println("3. View all bids for item");
+			System.out.println("4. View Transaction History");
+			System.out.println("5. Back to Deal Menu");
+		}
+
+		//Deal Menu
+		private static void dealMenu() {
+			System.out.println(" ");
+			System.out.println("=== Deal Menu ===");
+			System.out.println("1. View All Deals");
+			System.out.println("2. Add Deal");
+			System.out.println("3. Delete Deal");
+			System.out.println("4. Search Deal");
+			System.out.println("5. Update Deal");
+			System.out.println("6. View Seller Functions");
+			System.out.println("7. View Buyer Functions");
+			System.out.println("8. Quit");
+		}
+		
+		
+		//Search Menu (Options)
+		private static void searchMenu() {
+			System.out.println(" ");
+			System.out.println("=== Search Options ===");
+			System.out.println("1. Seller/Buyer Email");
+			System.out.println("2. Deal ID");
+			System.out.println("3. Item Name");
+			System.out.println("4. Close Date");
+			System.out.println("5. Deal Price");
+			System.out.println("6. Back to Deal Menu");
+		}
+		
 		
 		public DealDB(String dealID, String itemName, String buyerEmail, String sellerEmail, double dealPrice, String closeDate) {
 			super(dealID, itemName, buyerEmail, sellerEmail, dealPrice, closeDate);
@@ -385,31 +649,35 @@ public class DealDB extends Deal{
 			return msg;
 		}
 		
+		
+		private static void addToClosedDealList() {
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+			LocalDate currentDate = LocalDate.now();  
+			
+			//Change string date to date
+			for (int i=0; i<dealList.size(); i++) {
+				LocalDate closeDate = LocalDate.parse(dealList.get(i).getCloseDate(), dtf);
+				
+				//Check for duplicate addition
+				if (closeDate.compareTo(currentDate) < 0) {
+					if (closedDealList.size() > 0) {
+						for (int o = 0; o<closedDealList.size(); o++) {
+							if (!closedDealList.get(o).getDealID().equalsIgnoreCase(dealList.get(i).getDealID())) {
+								DealDB.closedDealList.add(dealList.get(i));
+							}
+						}
+					}
+					else {
+						DealDB.closedDealList.add(dealList.get(i));
+					}
+					
+					
+				}
+			}
+		}
+		
 	
-		//Deal Menu
-		private static void dealMenu() {
-			System.out.println(" ");
-			System.out.println("=== Deal Menu ===");
-			System.out.println("1. View All Deals");
-			System.out.println("2. Add Deal");
-			System.out.println("3. Delete Deal");
-			System.out.println("4. Search Deal");
-			System.out.println("5. Update Deal");
-			System.out.println("6. Quit");
-		}
 		
-		
-		//Search Menu (Options)
-		private static void searchMenu() {
-			System.out.println(" ");
-			System.out.println("=== Search Options ===");
-			System.out.println("1. Seller/Buyer Email");
-			System.out.println("2. Deal ID");
-			System.out.println("3. Item Name");
-			System.out.println("4. Close Date");
-			System.out.println("5. Deal Price");
-			System.out.println("6. Back to Deal Menu");
-		}
 		
 		
 		//Header Format
@@ -442,6 +710,22 @@ public class DealDB extends Deal{
 				if (!date.contains("/")) {
 					System.out.println("Your closing date must follow the format (dd/mm/yyyy). Please enter the date again.");
 					date = Helper.readString(prompt);
+				}
+				else {
+					contains = false;
+				}
+			}
+		}
+		
+		
+		//Yes No Validity Check
+		private static void charValidityCheck(char yesNo, String prompt) {
+			boolean contains = true;
+			
+			while (contains) {
+				if (yesNo != 'Y' && yesNo != 'N' && yesNo != 'y' && yesNo != 'n') {
+					System.out.println("You must enter Y or N, no other letter is allowed.");
+					yesNo = Helper.readChar(prompt);
 				}
 				else {
 					contains = false;

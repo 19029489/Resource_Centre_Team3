@@ -118,5 +118,7 @@ public class DealTest {
 		assertEquals("Test that user is unable to update name and password if the details are the same as the previous ones", "No changes were made to the deal.", msg2);
 		
 	}
+	
+	
 
 }
