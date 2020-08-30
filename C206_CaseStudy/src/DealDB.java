@@ -382,7 +382,6 @@ public class DealDB extends Deal{
 										System.out.println("\nThere are currently no closed deals.");
 									}
 								}
-									
 								
 							}
 						
@@ -390,10 +389,13 @@ public class DealDB extends Deal{
 						
 						//=================================================================  Give Ratings and feedback to Seller ==============================================
 						else if (buyerOption == 2){
-							setHeader("Give")
+							setHeader("Give rating and feedback to seller");
+							
+							
 						}
 						
 						else if (buyerOption == 3){
+							setHeader("View Transaction History");
 							
 						}
 						
