@@ -11,16 +11,19 @@ public class CategoryDB {
 		System.out.println("Category successfully added");
 	}
 	
-	public static void viewAllCategory() {
+	public static String viewAllCategory() {
+		String output = "";
 		if (catList.size() > 0) {
 			for (int i = 0; i < catList.size(); i++) {
+				output += catList.get(i).getName()+"\n";
 				System.out.println(catList.get(i).getName());
 			}
 		}
 		else {
 			System.out.println("No categories in the list");
+			output = "No categories in the list";
 		}
-		
+		return output;
 	}
 	
 	public static void delCategory(String cat) {
