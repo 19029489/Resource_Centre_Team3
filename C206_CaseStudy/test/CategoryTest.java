@@ -83,7 +83,7 @@ public class CategoryTest {
 		String expectedOutput = "";
 		expectedOutput += cat1.getName().toString() + "\n";
 		expectedOutput += cat3.getName().toString() + "\n";
-		assertSame("Test the expected output is same as the list of output", expectedOutput, CategoryDB.viewAllCategory());
+		assertEquals("Test the expected output is same as the list of output", expectedOutput, CategoryDB.viewAllCategory());
 	
 	}
 	

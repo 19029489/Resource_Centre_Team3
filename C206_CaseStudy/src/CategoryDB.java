@@ -10,7 +10,6 @@ public class CategoryDB {
 	}
 	
 	public static void viewAllCategory() {
-		String a = "";
 		if (catList.size() > 0) {
 			for (int i = 0; i < catList.size(); i++) {
 				System.out.println(catList.get(i).getName());
