@@ -10,8 +10,8 @@ public class ItemTest {
 	@Before
 	public void setUp() throws Exception {
 		/* Add Item */
-		item1 = new Item("Vase","Glass Vase",10.00, "30 Aug 2020", "1 Sept 2020",5.00);
-		item2 = new Item("Handphone Cover","Silicone Hello Kitty Handphone Cover", 20.00, "26 Aug 2020", "5 Sept 2020",5.00);
+		item1 = new Item("Vase","Glass Vase",10.00, "30 Aug 2020", "1 Sep 2020",5.00);
+		item2 = new Item("Handphone Cover","Silicone Hello Kitty Handphone Cover", 20.00, "26 Aug 2020", "5 Sep 2020",5.00);
 	}
 
 	@After

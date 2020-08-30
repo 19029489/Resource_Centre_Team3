@@ -8,6 +8,7 @@ public class DealDB extends Deal{
 	//Creating deal List
 	public static ArrayList<Deal> dealList = new ArrayList<Deal>();
 	public static ArrayList<Deal> closedDealList = new ArrayList<Deal>();
+	public static ArrayList<Item> closedAuctionList = new ArrayList<Item>();
 		
 		public static void main(String[] args) {
 			
@@ -271,7 +272,7 @@ public class DealDB extends Deal{
 								
 							char notice = Helper.readChar("Please note that when a seller cancels a deal, a penalty is deducted. Confirmed? (Y/N) > ");
 							
-							prompt = "Please note that when a seller cancels a deal, a penalty is deducted. Confirmed? (Y/N) > ";
+							prompt = "Please note that when a seller cancels a deal, a penalty of XX is deducted. Confirmed? (Y/N) > ";
 							
 							charValidityCheck(notice, prompt);
 							
@@ -319,12 +320,85 @@ public class DealDB extends Deal{
 						else if (sellerOption == 3) {
 							setHeader("View all bids for item");
 							
+							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy");  
+							LocalDate currentDate = LocalDate.now();  
+							
+							//Change string date to date
+							for (int i=0; i< ItemDB.itemList.size(); i++) {
+								LocalDate auctionEnd = LocalDate.parse(ItemDB.itemList.get(i).getEndDate(), dtf);
+								
+								//Check for duplicate addition
+								if (auctionEnd.compareTo(currentDate) < 0) {
+									if (closedAuctionList.size() > 0) {
+										for (int o = 0; o<closedAuctionList.size(); o++) {
+											if (!closedAuctionList.get(o).getName().equalsIgnoreCase(ItemDB.itemList.get(i).getName())) {
+												DealDB.closedAuctionList.add(ItemDB.itemList.get(i));
+											}
+										}
+									}
+									else {
+										closedAuctionList.add(ItemDB.itemList.get(i));
+									}
+								}
+							}
+							
+							System.out.println("All Bids");
+							
+							int count = 0;
+							for (int o = 0; o<closedAuctionList.size(); o++) {
+								for (int i=0; i< BidDB.bidList.size(); i++) {
+									if(closedAuctionList.get(0).getName() == BidDB.bidList.get(i).getItemName()) {
+										System.out.println((o+1) + ". " + BidDB.bidList.get(i).getBidPrice());
+										System.out.println(" ");
+									}
+									
+								}
+							}
+							
+							
 							
 						}
 						
 						//======================================= View transaction history =============================================
 						else if (sellerOption == 4) {
 							setHeader("View Transaction History");
+							
+							int count = 0;
+							System.out.println(String.format("%-15s %-20s %-20s %-20s %-20s %-20s %-20s", "Seller's Name", "Seller's Email", "Buyer's Name", "Buyer's Email", "Item Name", "Item Description", "Transaction Price"));
+							for (int i=0; i<closedDealList.size(); i++) {
+								if (closedDealList.get(i).getCancel() == null) {
+									if (closedDealList.get(i).getValidation() == 'Y' || closedDealList.get(i).getValidation() == 'y') {
+										String buyerEmail = closedDealList.get(i).getBuyerEmail();
+										String sellerEmail = closedDealList.get(i).getSellerEmail();
+										
+										for (int o = 0; o<UserDB.userList.size(); o++) {
+											if (UserDB.userList.get(o).getEmail() == buyerEmail) {
+												String buyerName = UserDB.userList.get(o).getUsername();
+												if (UserDB.userList.get(o).getEmail() == sellerEmail) {
+													String sellerName = UserDB.userList.get(o).getUsername();
+													
+													for (int e = 0; e <ItemDB.itemList.size(); e++) {
+														if (closedDealList.get(i).getItemName() == ItemDB.itemList.get(e).getName()) {
+															String item = ItemDB.itemList.get(e).getName();
+															String description = ItemDB.itemList.get(e).getDescription();
+															
+															System.out.println(String.format("%-15s %-20s %-20s %-20s %-20s %-20s %-20.2f", sellerName, sellerEmail, buyerName, buyerEmail, item, description, closedDealList.get(i).getDealPrice() ));
+														}
+													}
+													
+												}
+											}
+										}
+									}
+								} 
+								
+								else {
+									count = count + 1;
+								}
+							}
+							if (count == 0) {
+								System.out.println("Transaction History is empty.");
+							}
 							
 							
 						}
@@ -397,10 +471,49 @@ public class DealDB extends Deal{
 						else if (buyerOption == 3){
 							setHeader("View Transaction History");
 							
+							int count = 0;
+							System.out.println(String.format("%-15s %-20s %-20s %-20s %-20s %-20s %-20s", "Seller's Name", "Seller's Email", "Buyer's Name", "Buyer's Email", "Item Name", "Item Description", "Transaction Price"));
+							for (int i=0; i<closedDealList.size(); i++) {
+								if (closedDealList.get(i).getCancel() == null) {
+									if (closedDealList.get(i).getValidation() == 'Y' || closedDealList.get(i).getValidation() == 'y') {
+										String buyerEmail = closedDealList.get(i).getBuyerEmail();
+										String sellerEmail = closedDealList.get(i).getSellerEmail();
+										
+										for (int o = 0; o<UserDB.userList.size(); o++) {
+											if (UserDB.userList.get(o).getEmail() == buyerEmail) {
+												String buyerName = UserDB.userList.get(o).getUsername();
+												if (UserDB.userList.get(o).getEmail() == sellerEmail) {
+													String sellerName = UserDB.userList.get(o).getUsername();
+													
+													for (int e = 0; e <ItemDB.itemList.size(); e++) {
+														if (closedDealList.get(i).getItemName() == ItemDB.itemList.get(e).getName()) {
+															String item = ItemDB.itemList.get(e).getName();
+															String description = ItemDB.itemList.get(e).getDescription();
+															
+															System.out.println(String.format("%-15s %-20s %-20s %-20s %-20s %-20s %-20.2f", sellerName, sellerEmail, buyerName, buyerEmail, item, description, closedDealList.get(i).getDealPrice() ));
+														}
+													}
+													
+												}
+											}
+										}
+									}
+								} 
+								
+								else {
+									count = count + 1;
+								}
+							}
+							if (count == 0) {
+								System.out.println("Transaction History is empty.");
+							}
+							
+							
+						
 						}
 						
 						else if (buyerOption == 4){
-							
+							System.out.println("\nBack to Deal Menu...");
 						}
 						
 						else {
@@ -651,7 +764,7 @@ public class DealDB extends Deal{
 			return msg;
 		}
 		
-		
+		//List of closed Deals
 		private static void addToClosedDealList() {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
 			LocalDate currentDate = LocalDate.now();  
