@@ -9,6 +9,7 @@ public class CategoryDB {
 	}
 	
 	public static void viewAllCategory() {
+		String a = "";
 		if (catList.size() > 0) {
 			for (int i = 0; i < catList.size(); i++) {
 				System.out.println(catList.get(i).getName());
@@ -21,7 +22,12 @@ public class CategoryDB {
 	}
 	
 	public static void delCategory(String cat) {
-		catList.remove(cat);
+		for (int i = 0; i < catList.size(); i++) {
+			if(catList.get(i).getName().equals(cat)) {
+				catList.remove(i);
+			}
+		}
+		
 	}
 
 	public static boolean searchCategoryDB(String cat) {

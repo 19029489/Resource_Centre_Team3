@@ -57,7 +57,10 @@ public class CategoryMain {
 					}
 					else if (optionAdmin == 6) {
 	//					Category report
+						setHeader("Report");
 						categoryReport();
+						int reportOption = Helper.readInt("Enter the option to download report > ");
+						System.out.println("Report downloaded");
 					}
 					else {
 						System.out.println("Invalid Option! Please try again!");
@@ -148,7 +151,7 @@ public class CategoryMain {
 		System.out.println("3. Search category");
 		System.out.println("4. Update category");
 		System.out.println("5. Delete category");
-		System.out.println("6. Category report");
+		System.out.println("6. Report");
 		System.out.println("7. Logout");
 		Helper.line(80, "=");
 	}
