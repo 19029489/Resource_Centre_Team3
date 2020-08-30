@@ -53,7 +53,7 @@ public class CategoryMain {
 	//					Delete category
 						setHeader("Delete Catergory");
 						String deleteOption = Helper.readString("Enter the name of category > ");
-						CategoryDB.delCategory(deleteOption);								
+						CategoryDB.delCategory(deleteOption);
 					}
 					else if (optionAdmin == 6) {
 	//					Category report
