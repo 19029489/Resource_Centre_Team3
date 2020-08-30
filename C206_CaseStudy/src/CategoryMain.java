@@ -125,10 +125,6 @@ public class CategoryMain {
 		}
 	}
 		
-
-		
-		
-		
 	public static void setHeader(String header) {
 		System.out.println();
 		Helper.line(80, "=");
