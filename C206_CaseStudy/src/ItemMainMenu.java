@@ -217,12 +217,14 @@ public class ItemMainMenu  {
 			    output +=(String.format("%-10s %-30s\n", itemList.get(i).getName(), itemList.get(i).getDescription()));
 					
 			    System.out.println(output);
+			    ItemDB.searchItem(itemSearch);
 				}
 				
 			}
 			
 			
 		}
+		
 	
 	
 	
